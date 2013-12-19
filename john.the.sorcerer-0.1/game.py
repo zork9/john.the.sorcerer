@@ -56,6 +56,7 @@ class JohnTheSorcererMain:
 	self.player = Player()
 	self.player2 = Player() ### FIXME delete
 	self.aiengine = None
+	self.taskbarmode = None
         self.room = Maproom1(0,0,self.aiengine)
                 
         self.inventoryitem = None
@@ -110,76 +111,20 @@ class JohnTheSorcererMain:
                         self.taskbar.highlight()
                     else:
                         if pygame.mouse.get_pressed()[0]:
-                            self.player.unhighlight()
-                    if self.player2: 
-                        if self.collidewithclick(self.player2,self.room,self.position1stx,self.position1sty,50,50):
-                            self.player2.highlight()
-                            ## FIXME
-                            self.taskbar.highlight()
-                        else:
-                            if pygame.mouse.get_pressed()[0]:
-                                self.player2.unhighlight()
-
-                        self.playerflag = self.taskbar.domouse(self.player,self.player2)
-                        if self.playerflag == 0:
-                            break
-                        inventory = self.taskbar.openinventory(self.playerflag, font3)
-                        if self.playerflag == 1:
-                            inventory.setrow1(self.player.inventoryrow1)
-                            inventory.setrow2(self.player.inventoryrow2)
-                        elif self.playerflag == 2:
-                            inventory.setrow1(self.player2.inventoryrow1)
-                            inventory.setrow2(self.player2.inventoryrow2)
-                            
-                        #inventory = self.taskbar.doopeninventory(font3)
-                        flag = 0
-                        #inventory = Inventory(font3)
-    
-                        if self.inventorykey1 == 1:
-                            inventory.addkey()
-		
-			##if Scrollinvisibility(0,0,0,0,"1","1").readkeys(None):
-                        ##    inventory.additem(Inventoryscrollinvisibility())
-
-			if self.inventorymasterkey == 1:
-                       		1###FIX for key in inventory.additem(Inventorymasterkey())
-                        if self.inventorykey1 == 1:
-                       		1###FIX for key in inventory.additem(Inventorykey1())
-                       	if self.inventorykey2 == 1:
-                       		1###FIX for key in inventory
-			while flag == 0:#NOTE1
-                            inventory.draw(screen)
-                            pygame.display.update()
-                            pygame.key.set_repeat(1000,1000)
-                            for event in pygame.event.get():
-                                if event.type == QUIT:
-                                    return
-
-                                if event.type == pygame.MOUSEBUTTONDOWN:###FIX UP is for inventory opening
-                                    flag = 1
-                                    self.inventoryitem = inventory.getitem(self.inventoryitem)
-                                    pygame.key.set_repeat(1,1)
-                                    print 'item = %s' % self.inventoryitem
-
-                                elif event.type == KEYDOWN:
-                                    if event.key == K_LEFT:
-                                        inventory.moveleft()
-                                    elif event.key == K_RIGHT:
-                                        inventory.moveright()
-                                    elif event.key == K_x:
-                                        self.inventoryitem = inventory.getitem(self.inventoryitem)
-                                        pygame.key.set_repeat(1,1)
-                                        flag = 1
-
-
-                                
+                            1###self.player.unhighlight()
 
                 if event.type == pygame.MOUSEBUTTONUP:
 
                     position2 = pygame.mouse.get_pos()
                     self.position2ndx = position2[0]
                     self.position2ndy = position2[1]
-                    
+                   
+			### NOTE, collide on taskbar button widgets 
+	    	    self.taskbarmode = self.taskbar.collide(position2[0], position2[1])
+		    if (self.taskbarmode != None):	
+			print "clicked on %s" % self.taskbarmode
+
+            
                     self.position1stx = 0
                     self.position1sty = 0
                     self.position2ndx = 0
@@ -419,7 +364,7 @@ class JohnTheSorcererMain:
             position = pygame.mouse.get_pos()
                 
             self.taskbar.draw()
-            
+
             pygame.display.update()
             screen.blit(blankimage, (0,0))
             roomnumber = self.room.exit(self)
