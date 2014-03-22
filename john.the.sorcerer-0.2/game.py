@@ -17,6 +17,7 @@
 import pygame
 from pygame.locals import *
 
+from maproomsimple1 import *
 from maproom1 import *
 from inventory import *
 from player import *
@@ -53,11 +54,13 @@ class JohnTheSorcererMain:
                     
         screen.blit(blankimage, (0,0))
 
-	self.player = Player()
-	self.player2 = Player() ### FIXME delete
+	self.player = Player(550,340)
+	self.player2 = Player(550,340) ### FIXME delete
 	self.aiengine = None
 	self.taskbarmode = None
-        self.room = Maproom1(0,0,self.aiengine)
+        ###self.room = MaproomSimple1(0,0,550,430,self.aiengine)
+        self.room = MaproomSimple1(550,430)
+	self.shortest_path_nodes = []
                 
         self.inventoryitem = None
         self.inventorymasterkey = None
@@ -121,10 +124,11 @@ class JohnTheSorcererMain:
                    
 			### NOTE, collide on taskbar button widgets 
 	    	    self.taskbarmode = self.taskbar.collide(position2[0], position2[1])
-		    if (self.taskbarmode != None):	
-			print "clicked on %s" % self.taskbarmode
-
-            
+		    if (self.taskbarmode != None and self.taskbarmode[0] != None):	
+			print "clicked on %s" % self.taskbarmode[0]
+			if (self.taskbarmode[1] == 4):
+				self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
+           			 
                     self.position1stx = 0
                     self.position1sty = 0
                     self.position2ndx = 0
@@ -132,7 +136,7 @@ class JohnTheSorcererMain:
                     self.positionmovex = 0
                     self.positionmovey = 0
 
-                    
+		                    
                     
                 if event.type == pygame.MOUSEMOTION:
                     positionmove = pygame.mouse.get_pos()
@@ -317,6 +321,24 @@ class JohnTheSorcererMain:
             self.room.update(self.player)
             self.room.draw(screen,self.player) 
             self.player.drawstatic(screen)
+
+
+	    ### automove
+	    if (len(self.shortest_path_nodes) > 0):
+		self.pathnode = self.shortest_path_nodes[0]
+	    	if (self.player.x == self.pathnode.x and self.player.y == self.pathnode.y): 
+			self.shortest_path_nodes.pop(0)
+	        else:
+			if (self.player.x < self.pathnode.x):
+				self.player.x += 1		
+			elif (self.player.x > self.pathnode.x):
+				self.player.x -= 1		
+			if (self.player.y < self.pathnode.y):
+				self.player.y += 1		
+			elif (self.player.y > self.pathnode.y):
+				self.player.y -= 1		
+
+
             if self.player2:
                 self.player2.drawstatic(screen)
 

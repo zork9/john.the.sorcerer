@@ -36,9 +36,10 @@ class RoomPath:
 	self.player_end = Node(startx, starty) 
 
     def find_path(self, endx, endy):
-	self.player_end = Node(endx, endy)	
-        self.room_board.get_shortest_path(self.player_start, self.player_end)
-    
+	self.player_end = Node(endx, endy)
+	### returns list of nodes
+        return self.room_board.get_shortest_path(self.player_start, self.player_end)
+	    
     def set_player_position(self, endx, endy):
 	self.player_start = Node(endx, endy)	
 			

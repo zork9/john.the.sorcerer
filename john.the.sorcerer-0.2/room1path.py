@@ -25,7 +25,8 @@ from pathnode import Node
 
 class Room1Path(RoomPath):
     "Create room 1 polygons for pathfinding"
-    def __init__(self, start = Node(550, 430)):
+    def __init__(self, startx = 550, starty = 430):
+	RoomPath.__init__(self, startx, starty) 
 	self.side1 = pathgeometry.Polygon((0, 0), (640, 0), (640, 100), (0, 100),
       	                         ccw=False)
 	self.side2 = pathgeometry.Polygon((0, 400), (640, 400), (640, 480), (0, 480),
@@ -34,8 +35,9 @@ class Room1Path(RoomPath):
 	self.room_board.add(self.side1)
 	self.room_board.add(self.side2)
 
-	self.player_start = start 
+	self.player_start = Node(startx, starty) 
 
+### public functions 
 ###    find_path(self, endx, endy):
 ###    set_player_position(self, endx, endy):
 

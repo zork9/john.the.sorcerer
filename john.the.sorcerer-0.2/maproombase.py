@@ -20,15 +20,17 @@ from time import *
 
 class MaproomBase:
     "Room with a (big) map"
-    def __init__(self,x,y):
+    def __init__(self,x,y,w,h):
         ###Room.__init__(self)
         self.prevx = x
         self.prevy = y
         self.relativex = x
         self.relativey = y 
+       	self.w = w
+	self.h = h
         self.background = pygame.image.load('./pics/blank-purple.bmp').convert()
         self.direction = "north"
-        
+ 
     def draw(self,screen):
 	##print "x=%d" % self.relativex 
         screen.blit(self.background, (0+self.relativex, 0+self.relativey))

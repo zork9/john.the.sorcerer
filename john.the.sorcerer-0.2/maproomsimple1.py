@@ -1,5 +1,5 @@
 
-# Copyright (C) Johan Ceuppens 2010
+# Copyright (C) Johan Ceuppens 2010-2014
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or
@@ -19,16 +19,16 @@ from pygame.locals import *
 from maproomdungeon import *
 from room1path import *
 
-class Maproom1(MaproomDungeon):
-    "Room with a (big) map"
-    def __init__(self,x,y,playerx,playery,aiengine):
-        MaproomDungeon.__init__(self,x,y,640,480)
+class MaproomSimple1:
+    "Room 1 (simple stands for non-scrolling)"
+    def __init__(self,playerx,playery):
         self.background = pygame.image.load('./pics/room-owl-2-640x480.bmp').convert()
 	self.roompath = Room1Path(playerx, playery) 
+	self.gameobjects = []
 
     def draw(self,screen,player):
         # draw bg
-        screen.blit(self.background, (0+self.relativex, 0+self.relativey))
+        screen.blit(self.background, (0, 0))
 	
     def pickup(self, player):###FIX for each room
 	###print 'pickup1'
@@ -39,7 +39,12 @@ class Maproom1(MaproomDungeon):
 		print 'pickup'
 		return id
         return 0
-    
+
+    def collide(self, player):
+	1    
+
+    def update(self, player):
+	1    
 
     def isroomleftexit(self,game):
 	if game.player.x  < 10: 
@@ -51,16 +56,12 @@ class Maproom1(MaproomDungeon):
 		return 1
 	return 0
 
-    def setxyfromdown(self):
-        self.relativex = 0
-	self.relativey = 0
-
     def exit(self, game):
 	if self.isroomleftexit(game):
-		self.setxyfromdown()
+		###self.setxyfromdown()
 		return 2 ### NOTE goto room number 2 (in game obj) 
 	elif self.isroomrightexit(game):
-		self.setxyfromdown()
+		###self.setxyfromdown()
 		return 3 ### NOTE goto room number 3 (in game obj) 
 	return 0 
 
@@ -70,17 +71,3 @@ class Maproom1(MaproomDungeon):
             self.centaur1.talkcounter = 1
             return (self.centaur1,self.centaur2)
  
-    def collidesword(self,player):
-        for i in self.gameobjects:
-	    if i!= None:
-	    	id = i.collidewithsword(self,player)
-		#self.relativex = self.prevx
-		#self.relativey = self.prevy
-		return i ## NOTE : returns collided entity (single)
-	return None
-
-
-    def removeobject(self, o):
-        for i in range(0,len(self.gameobjects)):
-            if self.gameobjects[i] == o:
-                self.gameobjects[i] = None

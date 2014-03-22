@@ -28,5 +28,5 @@ class TaskbarButtonMove(TaskbarButton):
 	TaskbarButton.__init__(self, screen, font, 180, 320, './pics/move-60x30.bmp')
 
     def click(self):
-			
+	1			
 

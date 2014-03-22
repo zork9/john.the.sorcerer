@@ -22,20 +22,22 @@ from rng import *
 
 class Player(PlayerBase):
     "Player"
-    def __init__(self):
-        
+    def __init__(self, startx, starty):
+	PlayerBase.__init__(self)        
         self.stimlib = Stateimagelibrary()
-	self.x = 0
-	self.y = 0
+        self.image1 = pygame.image.load('./pics/testplayer.bmp').convert()
+	self.stimlib.addpicture(self.image1)
+	self.x = startx
+	self.y = starty 
 	self.w = 0
 	self.h = 0
         self.hitpoints = 50
 
     def draw(self, screen):
-	1
+	self.stimlib.draw(screen, self.x, self.y)	
  
     def drawstatic(self, screen):
-	1
+	self.stimlib.drawstatic(screen, self.x, self.y, 0)	
  
     def pickup(self,room):
         n = room.pickup(self)

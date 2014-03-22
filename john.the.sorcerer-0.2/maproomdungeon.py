@@ -21,8 +21,8 @@ from maproom import *
 
 class MaproomDungeon(MaproomBase):
     "Room with a (big) map"
-    def __init__(self,x,y):
-        MaproomBase.__init__(self,x,y)
+    def __init__(self,x,y,w,h):
+        MaproomBase.__init__(self,x,y,w,h)
         self.northwalls = []
         self.southwalls = []
         self.westwalls = []

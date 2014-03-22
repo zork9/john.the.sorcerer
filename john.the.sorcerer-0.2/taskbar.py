@@ -53,29 +53,29 @@ class Taskbar:
  
     def collide(self,xx,yy):
 	if (self.walkto.collide(xx,yy)):
-		return self.walkto
+		return (self.walkto, 1)
 	if (self.lookat.collide(xx,yy)):
-		return self.lookat
+		return (self.lookat, 2)
 	if (self.open.collide(xx,yy)):
-		return self.open
+		return (self.open, 3)
 	if (self.move.collide(xx,yy)):
-		return self.move
+		return (self.move, 4)
 	if (self.consume.collide(xx,yy)):
-		return self.consume
+		return (self.consume, 5)
 	if (self.pickup.collide(xx,yy)):
-		return self.pickup
+		return (self.pickup, 6)
 	if (self.close.collide(xx,yy)):
-		return self.close
+		return (self.close, 7)
 	if (self.use.collide(xx,yy)):
-		return self.use
+		return (self.use, 8)
 	if (self.talkto.collide(xx,yy)):
-		return self.talkto
+		return (self.talkto, 9)
 	if (self.remove.collide(xx,yy)):
-		return self.remove
+		return (self.remove, 10)
 	if (self.wear.collide(xx,yy)):
-		return self.wear
+		return (self.wear, 11)
 	if (self.give.collide(xx,yy)):
-		return self.give
+		return (self.give, 12)
 	return None
 
 

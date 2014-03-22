@@ -18,6 +18,7 @@ class Stateimagelibrary:
 	self.index = 0
 	self.max = 0
 	self.list = []
+
     def addpicture(self, image):
 	self.list.append(image)
 	self.max += 1
