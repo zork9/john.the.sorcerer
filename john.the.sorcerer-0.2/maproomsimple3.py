@@ -20,10 +20,10 @@ from maproomdungeon import *
 from room1path import *
 
 #
-# This room fields the owl on the tree with nest
+# This is the 
 #
 
-class MaproomSimple1:
+class MaproomSimple3:
     "Room 1 (simple stands for non-scrolling)"
     def __init__(self,playerx,playery):
         self.background = pygame.image.load('./pics/room-owl-2-640x480.bmp').convert()

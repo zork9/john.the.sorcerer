@@ -17,17 +17,18 @@
 import pygame
 from pygame.locals import *
 from maproomdungeon import *
-from room1path import *
+from room2path import *
 
 #
-# This room fields the owl on the tree with nest
+# This is the Town room with the Goon in the middle 
+# and tower on the left
 #
 
-class MaproomSimple1:
-    "Room 1 (simple stands for non-scrolling)"
+class MaproomSimple2:
+    "Room 2 (simple stands for non-scrolling)"
     def __init__(self,playerx,playery):
-        self.background = pygame.image.load('./pics/room-owl-2-640x480.bmp').convert()
-	self.roompath = Room1Path(playerx, playery) 
+        self.background = pygame.image.load('./pics/room-town-1-640x480.bmp').convert()
+	self.roompath = Room2Path(playerx, playery) 
 	self.gameobjects = []
 
     def draw(self,screen,player):

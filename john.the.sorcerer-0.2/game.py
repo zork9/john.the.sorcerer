@@ -18,6 +18,8 @@ import pygame
 from pygame.locals import *
 
 from maproomsimple1 import *
+from maproomsimple2 import *
+from maproomsimple3 import *
 from maproom1 import *
 from inventory import *
 from player import *
