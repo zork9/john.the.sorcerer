@@ -16,7 +16,6 @@
 
 import pygame
 from pygame.locals import *
-from maproomdungeon import *
 from room2path import *
 
 #

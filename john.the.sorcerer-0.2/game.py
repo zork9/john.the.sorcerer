@@ -20,10 +20,8 @@ from pygame.locals import *
 from maproomsimple1 import *
 from maproomsimple2 import *
 from maproomsimple3 import *
-from maproom1 import *
 from inventory import *
 from player import *
-### from maproom2 import *
 
 from taskbar import *
 
@@ -362,7 +360,7 @@ class JohnTheSorcererMain:
                         o.fight(self.room,self.player2)
                     	if o.hitpoints <= 0:
                         	self.room.removeobject(o)
-	    sleep(0.2)
+	    ###FIXME sleep(0.2)
             # fight for enemies
             # remove dead game objects
 
@@ -417,69 +415,14 @@ class JohnTheSorcererMain:
         # NOTE: 1_X  woods around haunted castle
         elif (roomnumber == 1):
             self.talker = None
-            self.room = Maproom1(self.x,self.y)
-        elif (roomnumber == 1.1):
-            self.talker = None
-            self.room = Maproom1_1(self.x,self.y)
-        elif (roomnumber == 1.2):
-            self.talker = None
-            self.room = Maproom1_2(self.x,self.y)
-        elif (roomnumber == 1.3):
-            self.talker = None
-            self.room = Maproominn1_3(self.x,self.y)
-        elif (roomnumber == 1.4):
-            self.talker = None
-            self.room = Maproominn1_4(self.x,self.y)
-        elif (roomnumber == 1.5):
-            self.talker = None
-            self.room = Maproominn1_5(self.x,self.y)
-        elif (roomnumber == 1.6):
-            self.talker = None
-            self.room = Maproominn1_6(self.x,self.y)
-        # NOTE left woods of haunted castle
-        elif (roomnumber == "1.1.1"):
-            self.talker = None
-            self.room = Maproom1_1_1(self.x,self.y)
-        # rooms of haunted castle    
+            self.room = MaproomSimple1(0,0)
         elif (roomnumber == 2):
             self.talker = None
-            self.room = Maproom2(self.x,self.y)
+            self.room = MaproomSimple2(0,0)
         elif (roomnumber == 3):
             self.talker = None
-            self.room = Maproom3(self.x,self.y)
-        elif (roomnumber == 4):
-            self.talker = None
-            self.room = Maproom4(self.x,self.y)
-        elif (roomnumber == 5):
-            self.talker = None
-            self.room = Maproom5(self.x,self.y)
-        elif (roomnumber == 6):
-            self.talker = None
-            self.room = Maproom6(self.x,self.y)
-        elif (roomnumber == 7):
-            self.talker = None
-            self.room = Maproom7(self.x,self.y)
-        elif (roomnumber == 8):
-            self.talker = None
-            self.room = Maproom8(self.x,self.y)
-        elif (roomnumber == 9):
-            self.talker = None
-            self.room = Maproom9(self.x,self.y)
-        elif (roomnumber == 10):
-            self.talker = None
-            self.room = Maproom10(self.x,self.y)
-        elif (roomnumber == 11):
-            self.talker = None
-            self.room = Maproom11(self.x,self.y)
-        elif (roomnumber == 12):
-            self.talker = None
-            self.room = Maproom12(self.x,self.y)
-        elif (roomnumber == 13):
-            self.talker = None
-            self.room = Maproom13(self.x,self.y)
-        elif (roomnumber == 14):
-            self.talker = None
-            self.room = Maproom14(self.x,self.y)
+            self.room = MaproomSimple3(0,0)
+
         # set sword parameters
         if self.inventoryrubysword:
             self.sethitf(self.room.gameobjects.hit2)
