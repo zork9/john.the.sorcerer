@@ -63,6 +63,7 @@ class JohnTheSorcererMain:
 	self.taskbarmode = None
         ###self.room = MaproomSimple1(0,0,550,430,self.aiengine)
         self.room = MaproomSimple1(550,430)
+	self.roomnumber = 1
 	self.shortest_path_nodes = []
                 
         self.inventoryitem = None
@@ -130,6 +131,10 @@ class JohnTheSorcererMain:
 		    if (self.taskbarmode != None and self.taskbarmode[0] != None):	
 			print "clicked on %s" % self.taskbarmode[0]
 			if (self.taskbarmode[1] == 4):
+				### 4 : move button clicked
+				self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
+			elif (self.taskbarmode[1] == 6):
+				### 6 : pickup button clicked
 				self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
            			 
                     self.position1stx = 0
@@ -233,37 +238,39 @@ class JohnTheSorcererMain:
 	    pickupid = self.room.pickup(self.player)
 	    #print "pickup=%s" % pickupid
 	    if pickupid:
-		if pickupid == 1: # NOTE : masterkey id
-		    self.inventorymasterkey = 1
-		elif pickupid == 2: ## NOTE: dungeonentrance 2 id opens with key 1
-                    if self.inventorykey1 == 1:
-                        self.room.removeentrance2()
-                elif pickupid == 3: # NOTE dungeon key 1 id
-                    flag = 0
-                    self.inventorykey1 = 1
-                    pygame.key.set_repeat(1000,1000)
-                    self.room.draw(screen,self.player) 
-                    self.player.drawstatic(screen)
-                    if self.player2:
-                        self.player2.drawstatic(screen)
-                    screen.blit(font2.render("You picked up a key. (Hit 'x' to continue)", 6, (0,0,200)), (100,100))
-                    pygame.display.update()
-                    while flag == 0:#NOTE1
-                            for event in pygame.event.get():
-                                if event.type == QUIT:
-                                    return
+		### roomnumber 1 pickup items
+		if self.roomnumber == 1:
+			if pickupid == 1: # NOTE : masterkey id
+			    self.inventorymasterkey = 1
+			elif pickupid == 2: ## NOTE: dungeonentrance 2 id opens with key 1
+	                    if self.inventorykey1 == 1:
+	                        self.room.removeentrance2()
+	                elif pickupid == 3: # NOTE dungeon key 1 id
+	                    flag = 0
+	                    self.inventorykey1 = 1
+	                    pygame.key.set_repeat(1000,1000)
+	                    self.room.draw(screen,self.player) 
+	                    self.player.drawstatic(screen)
+	                    if self.player2:
+	                        self.player2.drawstatic(screen)
+	                    screen.blit(font2.render("You picked up a key. (Hit 'x' to continue)", 6, (0,0,200)), (100,100))
+	                    pygame.display.update()
+	                    while flag == 0:#NOTE1
+	                            for event in pygame.event.get():
+	                                if event.type == QUIT:
+	                                    return
 
-                                elif event.type == KEYDOWN:
-                                    if event.key == K_x:
-                                        pygame.key.set_repeat(1,1)
-                                        flag = 1
+	                                elif event.type == KEYDOWN:
+	                                    if event.key == K_x:
+	                                        pygame.key.set_repeat(1,1)
+	                                        flag = 1
                                      
-                    self.inventorykey1 = 1
-                elif pickupid == 4: # NOTE dungeon key 2 id
-                    self.inventorykey2 = 1
-                elif pickupid == 5: # NOTE ruby sword id
-                    self.inventoryrubysword = 1
-                    self.taskbar.setrubysword()
+	                    self.inventorykey1 = 1
+	                elif pickupid == 4: # NOTE dungeon key 2 id
+	                    self.inventorykey2 = 1
+	                elif pickupid == 5: # NOTE ruby sword id
+	                    self.inventoryrubysword = 1
+	                    self.taskbar.setrubysword()
 
             if self.player2:
                 pickupid = self.room.pickup(self.player2)
@@ -392,8 +399,8 @@ class JohnTheSorcererMain:
 
             pygame.display.update()
             screen.blit(blankimage, (0,0))
-            roomnumber = self.room.exit(self)
-            self.chooseroom(roomnumber,font)
+            self.roomnumber = self.room.exit(self)
+            self.chooseroom(self.roomnumber,font)
 
 
     def sethitf(self, hitf):

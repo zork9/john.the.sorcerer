@@ -2,4 +2,7 @@ John the sorcerer, a Simon the sorcerer clone
 
 'i' key : show inventory, 
 'x' key : exit inventory and go back to main screen 
-arrows : movement
+
+click on the buttons in the taskbar to do something.
+as an example : push move, then click on the main screen and 
+the player moves towards that position

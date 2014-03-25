@@ -25,21 +25,26 @@ class Maproom1(MaproomDungeon):
         MaproomDungeon.__init__(self,x,y,640,480)
         self.background = pygame.image.load('./pics/room-owl-2-640x480.bmp').convert()
 	self.roompath = Room1Path(playerx, playery) 
+	self.masterdungeonkey1 = 0
 
     def draw(self,screen,player):
         # draw bg
         screen.blit(self.background, (0+self.relativex, 0+self.relativey))
-	
+##	for go in self.gameobjects:
+##		go.blit	
+
     def pickup(self, player):###FIX for each room
 	###print 'pickup1'
         for o in self.gameobjects:
             if (o and o.collide(self, player)):##FIX o.colidepickup
+		### return the id of the picked up item 
                 id = o.pickup(self)
-                self.dungeonkey1 = 1
+                self.masterdungeonkey1 = 1
 		print 'pickup'
 		return id
         return 0
-    
+	
+
 
     def isroomleftexit(self,game):
 	if game.player.x  < 10: 

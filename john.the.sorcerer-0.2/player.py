@@ -26,6 +26,7 @@ class Player(PlayerBase):
 	PlayerBase.__init__(self)        
         self.stimlib = Stateimagelibrary()
         self.image1 = pygame.image.load('./pics/simon-right-1-48x100.bmp').convert()
+        self.image1.set_colorkey((0,0,0)) 
 	self.stimlib.addpicture(self.image1)
 	self.x = startx
 	self.y = starty 

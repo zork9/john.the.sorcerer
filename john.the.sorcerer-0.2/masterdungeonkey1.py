@@ -1,5 +1,5 @@
 
-# Copyright (C) Johan Ceuppens 2010 
+# Copyright (C) Johan Ceuppens 2010-2014 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or
@@ -16,51 +16,40 @@
 
 import pygame
 from pygame.locals import *
+from gameobject import *
+from stateimagelibrary import *
 
-class Gameobject:
-    "Game object"
+class MasterDungeonKey1(Gameobject):
+    "DungeoMasterKey Game object"
     def __init__(self, xx,yy):
-	self.x = xx 
-        self.y = yy
+	Gameobject.__init__(self,xx,yy)
 	# default width and height 
         self.w = 48
         self.h = 48
-        self.SCREENH = 640
-        self.SCREENW = 480
-        ## dungeon statue as default picture
-        ## self.image = pygame.image.load('./pics/dungeon-statue1-36x36.bmp').convert()
-###        self.image = pygame.image.load('./pics/nopicture.bmp').convert()
-###        self.image.set_colorkey((0,0,0)) 
-        self.hitpoints = 1
-        # NOTE : decrease 1 hitpoint with default sword
-        self.hitf = self.hit1
-        self.meter = None
-        self.battlemode = None
-        
-    def draw(self, screen):   ###, room):
-        ### screen.blit(self.image,(self.x+room.relativex,self.y+room.relativey))
-        screen.blit(self.image,(self.x,self.y))
+      	self.stimlib = Stateimagelibrary()  
+	self.image1 = pygame.image.load('./pics/key1-48x48.bmp').convert()
+        self.image1.set_colorkey((0,0,0)) 
+       	self.stimlib.addpicture(self.image1)
+ 
+###    def draw(self, screen, room):
+###        screen.blit(self.image,(self.x+room.relativex,self.y+room.relativey))
+
+    def draw(self, screen):
+	self.stimlib.draw(screen, self.x, self.y)	
+ 
+    def drawstatic(self, screen):
+	self.stimlib.drawstatic(screen, self.x, self.y, 0)	
+ 
 	    
 	     
-    def collidewithsword(self, room, player):
-        #print 'gameobject x=%d y=%d player x=%d y=%d' % (self.x,self.y,player.x-room.relativex,player.y-room.relativey)
-	if (player.x-room.relativex > self.x-self.w  and 
-	player.x-room.relativex < self.x+self.w and 
-	player.y-room.relativey > self.y-self.h and 
-	player.y-room.relativey < self.y + self.h):
-	    #print "collision with Game Object!"
-	    return 1 
-	else:
-	    return 0
-
     def collide(self, room, player):
         # FIX BUG
         #print 'gameobject x=%d y=%d player x=%d y=%d' % (self.x,self.y,player.x-room.relativex,player.y-room.relativey)
-	if (player.x-room.relativex > self.x  and 
-	player.x-room.relativex < self.x+self.w and 
-	player.y-room.relativey > self.y and 
-	player.y-room.relativey < self.y + self.h):
-	    #print "collision with Game Object!"
+	if (player.x > self.x  and 
+	player.x < self.x+self.w and 
+	player.y > self.y and 
+	player.y < self.y + self.h):
+	    print "collision with DungeonMasterKey"
 	    return 1 
 	else:
 	    return 0 ## for game self.talker

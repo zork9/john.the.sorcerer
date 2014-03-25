@@ -18,6 +18,7 @@ import pygame
 from pygame.locals import *
 from maproomdungeon import *
 from room1path import *
+from masterdungeonkey1 import *
 
 #
 # This room fields the owl on the tree with nest
@@ -29,17 +30,22 @@ class MaproomSimple1:
         self.background = pygame.image.load('./pics/room-owl-2-640x480.bmp').convert()
 	self.roompath = Room1Path(playerx, playery) 
 	self.gameobjects = []
+	self.masterdungeonkey1 = 0
+######	self.gameobjects.append(MasterDungeonKey1(0,0))
 
     def draw(self,screen,player):
         # draw bg
         screen.blit(self.background, (0, 0))
+	for o in self.gameobjects:
+		o.draw(screen)
 	
     def pickup(self, player):###FIX for each room
 	###print 'pickup1'
         for o in self.gameobjects:
             if (o and o.collide(self, player)):##FIX o.colidepickup
+		### return id of the picked up item
                 id = o.pickup(self)
-                self.dungeonkey1 = 1
+                self.masterdungeonkey1 = 1
 		print 'pickup'
 		return id
         return 0
