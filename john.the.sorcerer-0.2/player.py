@@ -1,5 +1,5 @@
 
-# Copyright (C) Johan Ceuppens 2010
+# Copyright (C) Johan Ceuppens 2010-2014
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or
@@ -25,7 +25,7 @@ class Player(PlayerBase):
     def __init__(self, startx, starty):
 	PlayerBase.__init__(self)        
         self.stimlib = Stateimagelibrary()
-        self.image1 = pygame.image.load('./pics/testplayer.bmp').convert()
+        self.image1 = pygame.image.load('./pics/simon-right-1-48x100.bmp').convert()
 	self.stimlib.addpicture(self.image1)
 	self.x = startx
 	self.y = starty 

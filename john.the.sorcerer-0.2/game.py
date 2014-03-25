@@ -56,7 +56,8 @@ class JohnTheSorcererMain:
                     
         screen.blit(blankimage, (0,0))
 
-	self.player = Player(550,340)
+	###self.player = Player(550,340)
+	self.player = Player(100,200)
 	self.player2 = Player(550,340) ### FIXME delete
 	self.aiengine = None
 	self.taskbarmode = None
