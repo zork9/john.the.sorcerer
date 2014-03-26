@@ -37,6 +37,7 @@ class JohnTheSorcererMain:
         font3 = pygame.font.SysFont("Courier", 10)
         gameover = 0
 	self.displayeditem = None        
+	self.talktextnumber = -1
         blankimage = pygame.image.load('./pics/blank-purple.bmp').convert()
         titleimage = pygame.image.load('./pics/titlescreen.bmp').convert()
         self.x = 0
@@ -134,15 +135,18 @@ class JohnTheSorcererMain:
 			### 9 : talkto button clicked
 			self.player.changeorientation(self.position2ndx,self.position2ndy)
 			self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
-			self.taskbarmode = None
+			### keep talking self.taskbarmode = None
 		    	talkgo = self.room.talkto(self.position1stx,self.position1sty)
 		    	#print "talkid=%s" % talkid
 		    	if talkgo:
 			### roomnumber 1 talkto items
-	###		if self.roomnumber == 1:
-###			if talkgo.name == "Master Dungeon Key":
-				self.talkerlist.append(talkgo) 
-				print "self.talkerlist=%s" % self.talkerlist[0]
+			###if self.roomnumber == 1:
+				if talkgo.name == "Master Dungeon Key":
+					self.talkerlist.append(talkgo) 
+					print "self.talkerlist=%s" % self.talkerlist[0]
+				elif talkgo.name == "Nurk":
+					self.talkerlist.append(talkgo) 
+					print "self.talkerlist=%s" % self.talkerlist[0]
 
                 elif event.type == pygame.MOUSEBUTTONUP:
 
@@ -162,7 +166,7 @@ class JohnTheSorcererMain:
 				1
 			elif (self.taskbarmode[1] == 9):
 				### 9 : talkto button clicked
-				1
+				self.talktextnumber += 1
            			 
                     self.position1stx = 0
                     self.position1sty = 0
@@ -229,12 +233,12 @@ class JohnTheSorcererMain:
             
 	    pickupgo = self.room.pickup(self.player)
 	    if pickupgo:
-		### roomnumber 1 pickup items
+		### roomnumber 1 and 1.1 pickup items
 		###if self.roomnumber == 1 or self.roomnumber == 1.1:###NOTE
 		if pickupgo.name == "Master Dungeon Key": 
 		    self.inventorydungeonmasterkey1 = 1
 		    self.room.removeobjectlen(pickupgo)
-		    self.displayeditem = None ### do not display text anymore as it has been removed from the screen
+		    self.displayeditem = None ### do not display text anymore 
 
             self.room.update(self.player)
             self.room.draw(screen,self.player) 
@@ -255,10 +259,6 @@ class JohnTheSorcererMain:
 				self.player.y += 1		
 			elif (self.player.y > self.pathnode.y):
 				self.player.y -= 1		
-
-
-            if self.player2:
-                self.player2.drawstatic(screen)
 
             for o in self.room.gameobjects:
                 if o:
@@ -285,7 +285,11 @@ class JohnTheSorcererMain:
             if self.talkerlist != None:
                 for o in self.talkerlist:
                     if o != None:
-                        o.talk(screen)
+			if o.endoftalk():
+				self.talkerlist = []
+				self.talktextnumber = -1 
+                        else:
+				o.talkstatic(screen,self.talktextnumber)
 
             if self.position1stx != 0 or self.position1sty != 0:
                 pygame.draw.rect(screen, (255,0,0), ((self.position1stx,self.position1sty),(self.positionmovex,self.positionmovey)),1)

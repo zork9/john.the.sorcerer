@@ -18,6 +18,7 @@ import pygame
 from pygame.locals import *
 from room1path import *
 from masterdungeonkey1 import *
+from wizardgo import *
 from exit import *
 
 #
@@ -31,9 +32,10 @@ class MaproomSimple1:
 	self.roompath = Room1Path(playerx, playery) 
 	self.gameobjects = []
 	self.masterdungeonkey1 = 0
-	self.gameobjects.append(MasterDungeonKey1(200,200))
+	#### self.gameobjects.append(MasterDungeonKey1(200,200))
 	self.gameobjects.append(Exit(0,0,10,480,"<- To Goblin Camp"))
 	self.gameobjects.append(Exit(630,0,10,480,"To Goon City ->"))
+	self.gameobjects.append(WizardGO(200,200,48,48,"Nurk"))
 
     def draw(self,screen,player):
         # draw bg

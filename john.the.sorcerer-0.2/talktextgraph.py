@@ -1,5 +1,5 @@
-#!/usr/local/bin/python
-# Copyright (C) Johan Ceuppens 2010
+
+# Copyright (C) Johan Ceuppens 2010-2014 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or
@@ -13,33 +13,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 import pygame
 from pygame.locals import *
+from graph import *
+from talktextgraphnode import *
 from talktextinterface import *
 
-class Talktextlibrary(TalkTextInterface):
-    def __init__(self, font = None):
-	self.index = 0
-	self.max = 0
-	self.list = []
-	if font:
-		self.font = font
-	else:
-        	self.font = pygame.font.SysFont("Times", 18)
+class TalkTextGraph(TalkTextInterface, Graph):
+    "Graph"
+    def __init__(self, text):
+	Graph.__init__(self, TalkTextGraphNode(text))
+	self.currentnode = self.graphnode
 
+	### FIXME linear for now 
     def addtext(self, t):
-	self.list.append(t)
-	self.max += 1
-
-    def drawstatic(self, screen, xx, yy, index):
-	if (self.index >= self.max):
-            self.index = 0
-
-	screen.blit(self.font.render(self.list[index], 6, (211,211,211)), (xx,yy))
-
-    def draw(self, screen, xx, yy):
-	if (self.index >= self.max):
-            self.index = 0
-
-	screen.blit(self.font.render(self.list[self.index], 6, (0,0,200)), (xx,yy))
-	self.index += 1	
+	gn = TalkTextGraphNode(t)
+	self.currentnode.addout(gn)
+	self.currentnode = gn
+	

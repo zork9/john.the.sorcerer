@@ -20,22 +20,27 @@ from gameobject import *
 from stateimagelibrary import *
 from talktextlibrary import *
 
-class MasterDungeonKey1(Gameobject):
-    "DungeoMasterKey Game object"
-    def __init__(self, xx,yy):
-	Gameobject.__init__(self,xx,yy,48,48)
+class WizardGO(Gameobject):
+    "Wizard Game object"
+    def __init__(self, xx,yy,ww,hh,name):
+	Gameobject.__init__(self,xx,yy,ww,hh)
 	# default width and height 
-        self.w = 48
-        self.h = 48
-	self.name = "Master Dungeon Key"
+        self.w = ww 
+        self.h = hh 
+	self.name = name
       	self.stimlib = Stateimagelibrary()  
-	self.image1 = pygame.image.load('./pics/key1-48x48.bmp').convert()
+	self.image1 = pygame.image.load('./pics/nopicture.bmp').convert()
         self.image1.set_colorkey((0,0,0)) 
        	self.stimlib.addpicture(self.image1)
       	self.talktextlib = Talktextlibrary()  
-	self.talktextlib.addtext("The key says nothing") 
-###    def draw(self, screen, room):
-###        screen.blit(self.image,(self.x+room.relativex,self.y+room.relativey))
+	self.talktextlib.addtext("Nurks!") 
+	self.talktextlib.addtext("BossNurks!") 
+
+    def endoftalk(self):
+	if self.talktextlib.index >= self.talktextlib.max:
+		return 1
+	else:
+		return 0
 
     def draw(self, screen):
 	self.stimlib.draw(screen, self.x, self.y)	
@@ -79,32 +84,6 @@ class MasterDungeonKey1(Gameobject):
 	else:
 	    return 0 
     
-    def collideobjectX(self, room):
-	for i in room.gameobjects:
-	    if i != None:	
-	        if (self.x > i.x  and 
-		    self.x < i.x+i.w):
-	            return 1 
-	return 0
-
-    def collideobjectY(self, room):
-	for i in room.gameobjects:
-	    if i != None:	
-	        if (self.y > i.y  and 
-		    self.y < i.y+i.h):
-	            return 1 
-	return 0
- 
-    def collideobjectXY(self, room):
-	for i in room.gameobjects:
-	    if i:		
-	        if (self.x > i.x  and 
-	 	    self.x < i.x+i.w and 
-	            self.y > i.y and 
-	            self.y < i.y+i.h):
-	            return 1 
-	return 0 
-    
     def update(self,room,player):
 	1
 
@@ -120,22 +99,6 @@ class MasterDungeonKey1(Gameobject):
 
     def talkstatic(self, screen, n):
 	self.talktextlib.drawstatic(screen, self.x,self.y,n)	
-
-    def hit1(self):## NOTE decreases hitpoints
-        self.hitpoints -= 1
-        return self.hitpoints
-
-    def hit2(self):## NOTE decreases hitpoints
-        self.hitpoints -= 2
-        return self.hitpoints
-
-    def hitwithweapon(self,damage):
-	if damage > 0:
-            print 'enemy is hit!'
-        self.hitpoints -= damage
-        self.battlemode = 1
-        if self.meter:
-            self.meter.index -= damage
 
     def fight(self,room,player):
 	1
