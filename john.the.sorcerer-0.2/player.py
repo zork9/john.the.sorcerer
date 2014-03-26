@@ -28,13 +28,14 @@ class Player(PlayerBase):
         self.image1 = pygame.image.load('./pics/simon-right-1-48x100.bmp').convert()
         self.image1.set_colorkey((0,0,0)) 
 	self.stimlibright.addpicture(self.image1)
+        self.stimlibleft = Stateimagelibrary()
         self.image2 = pygame.image.load('./pics/simon-left-1-48x100.bmp').convert()
         self.image2.set_colorkey((0,0,0)) 
-	self.stimlibright.addpicture(self.image2)
+	self.stimlibleft.addpicture(self.image2)
 	self.x = startx
 	self.y = starty 
-	self.w = 0
-	self.h = 0
+	self.w = 48 
+	self.h = 100 
         self.hitpoints = 50
 	self.orientation = orientation ### -1 == left, 1 == right 
 

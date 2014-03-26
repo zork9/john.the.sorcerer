@@ -43,8 +43,9 @@ class MasterDungeonKey1(Gameobject):
     def drawstatic(self, screen):
 	self.stimlib.drawstatic(screen, self.x, self.y, 0)	
  
-	    
-	     
+    def drawininventory(self, screen,xx,yy):
+	self.stimlib.drawstatic(screen, xx, yy, 0)	
+ 
     def collide(self, room, player):
         # FIX BUG
         #print 'gameobject x=%d y=%d player x=%d y=%d' % (self.x,self.y,player.x-room.relativex,player.y-room.relativey)

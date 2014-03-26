@@ -39,15 +39,14 @@ class MaproomSimple1:
 		o.draw(screen)
 	
     def pickup(self, player):###FIX for each room
-	###print 'pickup1'
         for o in self.gameobjects:
             if (o and o.collide(self, player)):##FIX o.colidepickup
 		### return id of the picked up item
                 id = o.pickup(self)
                 self.masterdungeonkey1 = 1
 		print 'pickup'
-		return id
-        return 0
+		return o 
+        return None 
 
     def talkto(self, mousex, mousey):###FIX for each room
 	###print 'talkto1'
@@ -73,12 +72,12 @@ class MaproomSimple1:
 	1    
 
     def isroomleftexit(self,game):
-	if game.player.x  < 10: 
+	if game.player.x  < 1: 
 		return 1
 	return 0
 
     def isroomrightexit(self,game):
-	if game.player.x > 630:
+	if game.player.x > 639:
 		return 1
 	return 0
 

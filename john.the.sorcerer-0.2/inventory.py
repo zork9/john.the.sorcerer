@@ -83,12 +83,12 @@ class Inventory(object):
         for i in range(0,len(self.listrow1)):
             o = self.listrow1[i]
             if o:
-                o.draw(screen,80+40*(i%self.ITEMMAX),i/36)
+                o.drawininventory(screen,80+40*(i%self.ITEMMAX),i/36)
 
         for i in range(0,len(self.listrow2)):
             o = self.listrow2[i]
             if o:
-                o.draw(screen,80+40*(i%self.ITEMMAX),i/36 + self.ITEMHEIGHT)
+                o.drawininventory(screen,80+40*(i%self.ITEMMAX),i/36 + self.ITEMHEIGHT)
 
 	
         
@@ -139,4 +139,5 @@ class Inventory(object):
         return None
 
     def additem(self,o):
-        self.list.append(o)
+	### FIXME
+        self.listrow1.append(o)

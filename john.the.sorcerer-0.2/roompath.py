@@ -34,6 +34,8 @@ class RoomPath:
 	self.room_board.add(self.default_down_side)
 	self.player_start = Node(startx, starty)
 	self.player_end = Node(startx, starty) 
+	self.playerw = 48
+	self.playerh = 100
 
     def find_path(self, endx, endy):
 	self.player_end = Node(endx, endy)

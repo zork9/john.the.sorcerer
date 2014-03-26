@@ -65,7 +65,7 @@ class JohnTheSorcererMain:
 	self.shortest_path_nodes = []
                 
         self.inventoryitem = None
-        self.inventorymasterkey = None
+        self.inventorydungeonmasterkey1 = None
         self.inventorykey1 = None
         self.inventorykey2 = None
         self.inventoryrubysword = None
@@ -118,8 +118,8 @@ class JohnTheSorcererMain:
                         if pygame.mouse.get_pressed()[0]:
                             1###self.player.unhighlight()
 
-                if event.type == pygame.MOUSEBUTTONUP and self.taskbarmode and self.taskbarmode[1] == 4:
-			### 4 : move button clicked
+                if event.type == pygame.MOUSEBUTTONUP and self.taskbarmode and self.taskbarmode[1] == 1:
+			### 1 : walkto button clicked
 			self.player.changeorientation(self.position2ndx,self.position2ndy)
 			self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
 			self.taskbarmode = None	
@@ -154,8 +154,8 @@ class JohnTheSorcererMain:
 	    	    self.taskbarmode = self.taskbar.collide(position2[0], position2[1])
 		    if (self.taskbarmode != None and self.taskbarmode[0] != None):	
 			print "clicked on %s" % self.taskbarmode[0]
-			if (self.taskbarmode[1] == 4):
-				### 4 : move button clicked
+			if (self.taskbarmode[1] == 1):
+				### 1 : walkto button clicked
 				1
 			elif (self.taskbarmode[1] == 6):
 				### 6 : pickup button clicked
@@ -202,8 +202,6 @@ class JohnTheSorcererMain:
             	    
                     # self.player 1 key controls
                     self.player.draw(screen)
-                    if self.player2:
-                        self.player2.draw(screen)
                     if event.key == K_x:
                         if self.room.collide(self.player) == 2:
                             self.talkerlist = self.room.talkto() # FIX
@@ -245,8 +243,8 @@ class JohnTheSorcererMain:
 			##if Scrollinvisibility(0,0,0,0,"1","1").readkeys(None):
                         ##    inventory.additem(Inventoryscrollinvisibility())
 
-			if self.inventorymasterkey == 1:
-                       		1###FIX for key in inventory.additem(Inventorymasterkey())
+			if self.inventorydungeonmasterkey1 == 1:
+                       		inventory.additem(MasterDungeonKey1(0,0))
                         if self.inventorykey1 == 1:
                        		1###FIX for key in inventory.additem(Inventorykey1())
                        	if self.inventorykey2 == 1:
@@ -271,42 +269,13 @@ class JohnTheSorcererMain:
                                 inventory.draw(screen)
                                 pygame.display.update()
             
-	    pickupid = self.room.pickup(self.player)
-	    #print "pickup=%s" % pickupid
-	    if pickupid:
+	    pickupgo = self.room.pickup(self.player)
+	    if pickupgo:
 		### roomnumber 1 pickup items
 		if self.roomnumber == 1:
-			if pickupid == 1: # NOTE : masterkey id
-			    self.inventorymasterkey = 1
-			elif pickupid == 2: ## NOTE: dungeonentrance 2 id opens with key 1
-	                    if self.inventorykey1 == 1:
-	                        self.room.removeentrance2()
-	                elif pickupid == 3: # NOTE dungeon key 1 id
-	                    flag = 0
-	                    self.inventorykey1 = 1
-	                    pygame.key.set_repeat(1000,1000)
-	                    self.room.draw(screen,self.player) 
-	                    self.player.drawstatic(screen)
-	                    if self.player2:
-	                        self.player2.drawstatic(screen)
-	                    screen.blit(font2.render("You picked up a key. (Hit 'x' to continue)", 6, (0,0,200)), (100,100))
-	                    pygame.display.update()
-	                    while flag == 0:#NOTE1
-	                            for event in pygame.event.get():
-	                                if event.type == QUIT:
-	                                    return
-
-	                                elif event.type == KEYDOWN:
-	                                    if event.key == K_x:
-	                                        pygame.key.set_repeat(1,1)
-	                                        flag = 1
-                                     
-	                    self.inventorykey1 = 1
-	                elif pickupid == 4: # NOTE dungeon key 2 id
-	                    self.inventorykey2 = 1
-	                elif pickupid == 5: # NOTE ruby sword id
-	                    self.inventoryrubysword = 1
-	                    self.taskbar.setrubysword()
+			if pickupgo.name == "Master Dungeon Key": 
+			    self.inventorydungeonmasterkey1 = 1
+			    self.room.removeobject(pickupgo)
 
 	    ### taskbarmode stays on until talking is over
 	    ### go stands for gameobject
@@ -325,7 +294,8 @@ class JohnTheSorcererMain:
             self.player.drawstatic(screen)
 
 	    ### automove
-	    if (len(self.shortest_path_nodes) > 0):
+	    ### FIXME if (len(self.shortest_path_nodes) > 0):
+	    if (self.shortest_path_nodes and len(self.shortest_path_nodes) > 0):
 		self.pathnode = self.shortest_path_nodes[0]
 	    	if (self.player.x == self.pathnode.x and self.player.y == self.pathnode.y): 
 			self.shortest_path_nodes.pop(0)

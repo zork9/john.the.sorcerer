@@ -29,7 +29,7 @@ class Room1Path(RoomPath):
 	RoomPath.__init__(self, startx, starty) 
 	self.side1 = pathgeometry.Polygon((0, 0), (640, 0), (640, 100), (0, 100),
       	                         ccw=False)
-	self.side2 = pathgeometry.Polygon((0, 400), (640, 400), (640, 480), (0, 480),
+	self.side2 = pathgeometry.Polygon((0, 400-self.playerh), (640, 400-self.playerh), (640, 480), (0, 480),
        	                         ccw=False)
 
 	self.room_board.add(self.side1)
