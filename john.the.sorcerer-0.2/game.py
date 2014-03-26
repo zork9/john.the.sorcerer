@@ -118,7 +118,13 @@ class JohnTheSorcererMain:
                         if pygame.mouse.get_pressed()[0]:
                             1###self.player.unhighlight()
 
-                if event.type == pygame.MOUSEBUTTONUP:
+                if event.type == pygame.MOUSEBUTTONUP and self.taskbarmode and self.taskbarmode[1] == 4:
+			### 4 : move button clicked
+			self.player.changeorientation(self.position2ndx,self.position2ndy)
+			self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
+			self.taskbarmode = None	
+
+                elif event.type == pygame.MOUSEBUTTONUP:
 
                     position2 = pygame.mouse.get_pos()
                     self.position2ndx = position2[0]
@@ -130,8 +136,7 @@ class JohnTheSorcererMain:
 			print "clicked on %s" % self.taskbarmode[0]
 			if (self.taskbarmode[1] == 4):
 				### 4 : move button clicked
-				self.player.changeorientation(self.position2ndx,self.position2ndy)
-				self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
+				1
 			elif (self.taskbarmode[1] == 6):
 				### 6 : pickup button clicked
 				self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
@@ -163,6 +168,7 @@ class JohnTheSorcererMain:
 
 
 		    ### set display name of gameobject last hovered over
+		    print "ROOM=%s" % self.room
 		    go = self.room.collide(positionmove[0], positionmove[1])
 		    if go:
 			self.displayeditemtext = go.name

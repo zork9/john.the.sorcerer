@@ -57,8 +57,7 @@ class MaproomSimple1:
 		yy < go.y + go.h):
 		    print "collision in maproomsimple1 go=%s" % go
 		    return go 
-		else:
-		    return None
+        return None
 
     def update(self, player):
 	1    
