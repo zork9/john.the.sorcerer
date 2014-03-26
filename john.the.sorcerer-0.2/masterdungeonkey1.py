@@ -53,10 +53,10 @@ class MasterDungeonKey1(Gameobject):
 	player.x < self.x+self.w and 
 	player.y > self.y and 
 	player.y < self.y + self.h):
-	    print "collision with DungeonMasterKey"
+	    print "collision with Dungeon Master Key"
 	    return 1 
 	else:
-	    return 0 ## for game self.talker
+	    return 0 
 
     def collidecoord(self, xx, yy):
 	if (xx > self.x  and 

@@ -230,10 +230,10 @@ class JohnTheSorcererMain:
 	    pickupgo = self.room.pickup(self.player)
 	    if pickupgo:
 		### roomnumber 1 pickup items
-		if self.roomnumber == 1:
-			if pickupgo.name == "Master Dungeon Key": 
-			    self.inventorydungeonmasterkey1 = 1
-			    self.room.removeobject(pickupgo)
+		###if self.roomnumber == 1 or self.roomnumber == 1.1:###NOTE
+		if pickupgo.name == "Master Dungeon Key": 
+		    self.inventorydungeonmasterkey1 = 1
+		    self.room.removeobjectlen(pickupgo)
 
             self.room.update(self.player)
             self.room.draw(screen,self.player) 

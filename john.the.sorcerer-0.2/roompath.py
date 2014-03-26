@@ -30,8 +30,8 @@ class RoomPath:
       	                         ccw=False)
 	self.default_down_side = pathgeometry.Polygon((0, 400), (640, 400), (640, 480), (0, 480),
        	                         ccw=False)
-	self.room_board.add(self.default_upper_side)
-	self.room_board.add(self.default_down_side)
+######	self.room_board.add(self.default_upper_side)
+######	self.room_board.add(self.default_down_side)
 	self.player_start = Node(startx, starty)
 	self.player_end = Node(startx, starty) 
 	self.playerw = 48

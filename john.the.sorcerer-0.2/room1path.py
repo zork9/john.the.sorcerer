@@ -32,8 +32,8 @@ class Room1Path(RoomPath):
 	self.side2 = pathgeometry.Polygon((0, 400-self.playerh), (640, 400-self.playerh), (640, 480), (0, 480),
        	                         ccw=False)
 
-	self.room_board.add(self.side1)
-	self.room_board.add(self.side2)
+######	self.room_board.add(self.side1)
+######	self.room_board.add(self.side2)
 
 	self.player_start = Node(startx, starty) 
 

@@ -36,7 +36,8 @@ class MaproomSimple1:
         # draw bg
         screen.blit(self.background, (0, 0))
 	for o in self.gameobjects:
-		o.draw(screen)
+		if o:
+			o.draw(screen)
 	
     def pickup(self, player):###FIX for each room
         for o in self.gameobjects:
@@ -60,7 +61,7 @@ class MaproomSimple1:
 
     def collide(self, xx,yy):
 	for go in self.gameobjects:
-		if (xx > go.x  and 
+		if go and (xx > go.x  and 
 		xx < go.x+go.w and 
 		yy > go.y and 
 		yy < go.y + go.h):
