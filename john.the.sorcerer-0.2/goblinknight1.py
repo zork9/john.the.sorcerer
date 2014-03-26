@@ -16,24 +16,22 @@
 
 import pygame
 from pygame.locals import *
-from gameobject import *
+from wizardgo import *
 from stateimagelibrary import *
 from talktextlibrary import *
 
-class WizardGO(Gameobject):
-    "Wizard Game object"
-    def __init__(self, xx,yy,ww,hh,name):
-	Gameobject.__init__(self,xx,yy,ww,hh)
-        self.w = ww 
-        self.h = hh 
-	self.name = name
+class GoblinKnight1(WizardGO):
+    "Wizard Game object derivation"
+    def __init__(self, xx,yy,ww,hh):
+	WizardGO.__init__(self,xx,yy,ww,hh,"Fabian, the Goblin Knight")
       	self.stimlib = Stateimagelibrary()  
-	self.image1 = pygame.image.load('./pics/nopicture.bmp').convert()
+	self.image1 = pygame.image.load('./pics/goblin-knight-left-1-50x50.bmp').convert()
         self.image1.set_colorkey((0,0,0)) 
        	self.stimlib.addpicture(self.image1)
       	self.talktextlib = Talktextlibrary()  
-	self.talktextlib.addtext("Nurks!") 
-	self.talktextlib.addtext("BossNurks!") 
+	self.talktextlib.addtext("Hello...") 
+	self.talktextlib.addtext("I am the Overlord Knight of Gobilins.") 
+	self.talktextlib.addtext("I will kill you if I can !") 
 
     def endoftalk(self):
 	if self.talktextlib.index >= self.talktextlib.max:

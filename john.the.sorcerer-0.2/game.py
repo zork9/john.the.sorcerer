@@ -200,6 +200,8 @@ class JohnTheSorcererMain:
 		    go = self.room.collide(positionmove[0], positionmove[1])
 		    if go:
 			self.displayeditem = go
+		    elif self.player.collide(positionmove[0], positionmove[1]):
+			self.displayeditem = self.player
                     else:
 			self.displayeditem = None
             

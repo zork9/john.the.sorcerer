@@ -22,7 +22,6 @@ class Gameobject:
     def __init__(self, xx,yy,ww,hh):
 	self.x = xx 
         self.y = yy
-	# default width and height 
         self.w = ww
         self.h = hh
         self.SCREENH = 640

@@ -39,13 +39,26 @@ class Player(PlayerBase):
         self.image2 = pygame.image.load('./pics/simon-left-1-48x100.bmp').convert()
         self.image2.set_colorkey((0,0,0)) 
 	self.stimlibleft.addpicture(self.image2)
-
+	self.name = "John"
+	self.namex = 200 
+	self.namey = 10 
 	self.x = startx
 	self.y = starty 
 	self.w = 48 
 	self.h = 100 
         self.hitpoints = 50
 	self.orientation = orientation ### -1 == left, 1 == right 
+
+    def collide(self, xx, yy):
+        # FIX BUG
+	if (xx > self.x  and 
+	xx < self.x + self.w and 
+	yy > self.y and 
+	yy < self.y + self.h):
+	    print "collision with John"
+	    return 1 
+	else:
+	    return 0 
 
     def dither(self, image):
 	image.set_masks((0,0,100,100))
