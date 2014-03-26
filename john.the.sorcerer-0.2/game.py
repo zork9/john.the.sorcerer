@@ -168,7 +168,7 @@ class JohnTheSorcererMain:
 
 
 		    ### set display name of gameobject last hovered over
-		    print "ROOM=%s" % self.room
+		    ### print "ROOM=%s" % self.room
 		    go = self.room.collide(positionmove[0], positionmove[1])
 		    if go:
 			self.displayeditemtext = go.name

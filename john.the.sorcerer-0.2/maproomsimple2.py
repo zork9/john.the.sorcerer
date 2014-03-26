@@ -26,7 +26,7 @@ from masterdungeonkey1 import *
 class MaproomSimple2:
     "Room 1 (simple stands for non-scrolling)"
     def __init__(self,playerx,playery):
-        self.background = pygame.image.load('./pics/room-owl-2-640x480.bmp').convert()
+        self.background = pygame.image.load('./pics/room-goblin-camp-1-640x480.bmp').convert()
 	self.roompath = Room1Path(playerx, playery) 
 	self.gameobjects = []
 	self.masterdungeonkey1 = 0
