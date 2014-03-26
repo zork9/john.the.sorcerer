@@ -26,18 +26,29 @@ class Player(PlayerBase):
 	PlayerBase.__init__(self)        
         self.stimlibright = Stateimagelibrary()
         self.image1 = pygame.image.load('./pics/simon-right-1-48x100.bmp').convert()
-        self.image1.set_colorkey((0,0,0)) 
+        self.image1.set_colorkey((0,0,0))
 	self.stimlibright.addpicture(self.image1)
+
+        self.stimlibrighthighlight = Stateimagelibrary()
+	self.highlightedimage1 = self.image1.copy()
+	self.dither(self.highlightedimage1) 
+	self.stimlibrighthighlight.addpicture(self.highlightedimage1)
+	self.highlight = 0 
+
         self.stimlibleft = Stateimagelibrary()
         self.image2 = pygame.image.load('./pics/simon-left-1-48x100.bmp').convert()
         self.image2.set_colorkey((0,0,0)) 
 	self.stimlibleft.addpicture(self.image2)
+
 	self.x = startx
 	self.y = starty 
 	self.w = 48 
 	self.h = 100 
         self.hitpoints = 50
 	self.orientation = orientation ### -1 == left, 1 == right 
+
+    def dither(self, image):
+	image.set_masks((0,0,100,100))
 
     def changeorientation(self, xx,yy):
 	if xx < self.x:
@@ -51,7 +62,8 @@ class Player(PlayerBase):
 	if self.orientation == -1:
 		self.stimlibleft.draw(screen, self.x, self.y)	
 	elif self.orientation == 1:
-		self.stimlibright.draw(screen, self.x, self.y)	
+		if self.highlight:
+			self.stimlibrighthighlight.draw(screen, self.x, self.y)	
 	else:
 		self.stimlibleft.draw(screen, self.x, self.y)	
  
@@ -62,3 +74,8 @@ class Player(PlayerBase):
         n = room.pickup(self)
 	return n
 
+    def highlight(self):
+	self.highlight = 1	
+
+    def unhighlight(self):
+	self.highlight = 0	

@@ -1,5 +1,5 @@
 
-# Copyright (C) Johan Ceuppens 2010-2014 
+# Copyright (C) Johan Ceuppens 2010-2013 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or
@@ -18,15 +18,31 @@ import pygame
 from pygame.locals import *
 from taskbarbutton import *
 
-import pathgeometry
-import pathmapping
-from pathnode import Node
-
-class TaskbarButtonMove(TaskbarButton):
+class TaskbarButtonHighlight(TaskbarButton):
     "Taskbar Button Highlight"
-    def __init__(self, screen, font):
-	TaskbarButton.__init__(self, screen, font, 180, 320, './pics/move-60x30.bmp')
+    def __init__(self, screen, font, xx, yy, filename):
+	TaskbarButton.__init__(self, screen, font, xx, yy, filename)
+	self.highlight = 0
+	self.highlightedimage = self.image.copy()
+	self.dither(self.highlightedimage)
+		
+    def draw(self):
+	if self.highlight:
+        	self.screen.blit(self.highlightedimage, (self.x, self.y))
+	elif not self.highlight:
+        	self.screen.blit(self.image, (self.x, self.y))
+	else:
+        	self.screen.blit(self.highlightedimage, (self.x, self.y))
 
     def click(self):
-	1			
+	1
+
+    def highlight(self):
+	self.highlight = 1
+
+    def unhighlight(self):
+	self.highlight = 0
+
+    def dither(self, image):
+	image.set_masks((0,0,100,100))
 

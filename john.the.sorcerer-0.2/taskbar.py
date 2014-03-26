@@ -16,18 +16,18 @@
 
 import pygame
 from pygame.locals import *
-from taskbarbuttonwalkto import *
-from taskbarbuttonlookat import *
-from taskbarbuttonopen import *
-from taskbarbuttonmove import *
-from taskbarbuttonconsume import *
-from taskbarbuttonpickup import *
-from taskbarbuttonclose import *
-from taskbarbuttonuse import *
-from taskbarbuttontalkto import *
-from taskbarbuttonremove import *
-from taskbarbuttonwear import *
-from taskbarbuttongive import *
+from taskbarbuttonhighlightwalkto import *
+from taskbarbuttonhighlightlookat import *
+from taskbarbuttonhighlightopen import *
+from taskbarbuttonhighlightmove import *
+from taskbarbuttonhighlightconsume import *
+from taskbarbuttonhighlightpickup import *
+from taskbarbuttonhighlightclose import *
+from taskbarbuttonhighlightuse import *
+from taskbarbuttonhighlighttalkto import *
+from taskbarbuttonhighlightremove import *
+from taskbarbuttonhighlightwear import *
+from taskbarbuttonhighlightgive import *
 
 class Taskbar:
     "Taskbar"
@@ -38,18 +38,18 @@ class Taskbar:
         self.background.set_colorkey((0,0,255)) 
        
 	### taskbar widgets
-	self.walkto = TaskbarButtonWalkTo(screen, font) 
-	self.lookat = TaskbarButtonLookAt(screen, font) 
-	self.open = TaskbarButtonOpen(screen, font) 
-	self.move = TaskbarButtonMove(screen, font) 
-	self.consume = TaskbarButtonConsume(screen, font) 
-	self.pickup = TaskbarButtonPickUp(screen, font) 
-	self.close = TaskbarButtonClose(screen, font) 
-	self.use = TaskbarButtonUse(screen, font) 
-	self.talkto = TaskbarButtonTalkTo(screen, font) 
-	self.remove = TaskbarButtonRemove(screen, font) 
-	self.wear = TaskbarButtonWear(screen, font) 
-	self.give = TaskbarButtonGive(screen, font) 
+	self.walkto = TaskbarButtonHighlightWalkTo(screen, font) 
+	self.lookat = TaskbarButtonHighlightLookAt(screen, font) 
+	self.open = TaskbarButtonHighlightOpen(screen, font) 
+	self.move = TaskbarButtonHighlightMove(screen, font) 
+	self.consume = TaskbarButtonHighlightConsume(screen, font) 
+	self.pickup = TaskbarButtonHighlightPickUp(screen, font) 
+	self.close = TaskbarButtonHighlightClose(screen, font) 
+	self.use = TaskbarButtonHighlightUse(screen, font) 
+	self.talkto = TaskbarButtonHighlightTalkTo(screen, font) 
+	self.remove = TaskbarButtonHighlightRemove(screen, font) 
+	self.wear = TaskbarButtonHighlightWear(screen, font) 
+	self.give = TaskbarButtonHighlightGive(screen, font) 
  
     def collide(self,xx,yy):
 	if (self.walkto.collide(xx,yy)):
@@ -78,7 +78,57 @@ class Taskbar:
 		return (self.give, 12)
 	return None
 
+    def highlight(self):
+	if "highlight" in dir(self.walkto):	
+		self.walkto.highlight()
+	if "highlight" in dir(self.lookat):	
+		self.lookat.highlight()
+	if "highlight" in dir(self.open):	
+		self.open.highlight()
+	if "highlight" in dir(self.move):	
+		self.move.highlight()
+	if "highlight" in dir(self.consume):	
+		self.consume.highlight()
+	if "highlight" in dir(self.pickup):	
+		self.pickup.highlight()
+	if "highlight" in dir(self.close):	
+		self.close.highlight()
+	if "highlight" in dir(self.use):	
+		self.use.highlight()
+	if "highlight" in dir(self.talkto):	
+		self.talkto.highlight()
+	if "highlight" in dir(self.remove):	
+		self.remove.highlight()
+	if "highlight" in dir(self.wear):	
+		self.wear.highlight()
+	if "highlight" in dir(self.give):	
+		self.give.highlight()
 
+    def unhighlight(self):
+	if "unhighlight" in dir(self.walkto):	
+		self.walkto.unhighlight()
+	if "unhighlight" in dir(self.lookat):	
+		self.lookat.unhighlight()
+	if "unhighlight" in dir(self.open):	
+		self.open.unhighlight()
+	if "unhighlight" in dir(self.move):	
+		self.move.unhighlight()
+	if "unhighlight" in dir(self.consume):	
+		self.consume.unhighlight()
+	if "unhighlight" in dir(self.pickup):	
+		self.pickup.unhighlight()
+	if "unhighlight" in dir(self.close):	
+		self.close.unhighlight()
+	if "unhighlight" in dir(self.use):	
+		self.use.unhighlight()
+	if "unhighlight" in dir(self.talkto):	
+		self.talkto.unhighlight()
+	if "unhighlight" in dir(self.remove):	
+		self.remove.unhighlight()
+	if "unhighlight" in dir(self.wear):	
+		self.wear.unhighlight()
+	if "unhighlight" in dir(self.give):	
+		self.give.unhighlight()
 
     def draw(self):
         self.screen.blit(self.background, (0, 310))

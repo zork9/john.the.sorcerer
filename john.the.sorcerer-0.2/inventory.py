@@ -1,9 +1,6 @@
 
-# Copyright (C) Johan Ceuppens 2013
-# Copyright (C) Johan Ceuppens 2011
-# Copyright (C) Johan Ceuppens 2010
+# Copyright (C) Johan Ceuppens 2010-2014
 
-# Copyright (C) Johan Ceuppens 2009 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or
@@ -118,7 +115,6 @@ class Inventory(object):
         pos = pygame.mouse.get_pos()
         mousex = pos[0]
         mousey = pos[1]
-        print 'mousex=%d mousey=%d' % (mousex,mousey)
         if mousex > 80 and mousey < self.ITEMHEIGHT and (mousex - 80) / self.ITEMWIDTH <= len(self.listrow1) and len(self.listrow1) != 0: 
                 print '1st mousex=%d mousey=%d' % (mousex,mousey)
                 

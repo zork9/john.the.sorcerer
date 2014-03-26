@@ -1,5 +1,6 @@
 #!/usr/local/bin/python
-# Copyright (C) Johan Ceupens 2013
+# Copyright (C) Johan Ceupens 2012-2014
+# Copyright (C) Werner Van Belle 2013-2014
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or
@@ -67,7 +68,6 @@ class JohnTheSorcererMain:
         self.inventoryitem = None
         self.inventorydungeonmasterkey1 = None
         self.inventorykey1 = None
-        self.inventorykey2 = None
         self.inventoryrubysword = None
         
         self.taskbar = Taskbar(screen,font)
@@ -116,7 +116,7 @@ class JohnTheSorcererMain:
                         self.taskbar.highlight()
                     else:
                         if pygame.mouse.get_pressed()[0]:
-                            1###self.player.unhighlight()
+                            self.player.unhighlight()
 
                 if event.type == pygame.MOUSEBUTTONUP and self.taskbarmode and self.taskbarmode[1] == 1:
 			### 1 : walkto button clicked
@@ -199,56 +199,14 @@ class JohnTheSorcererMain:
 			self.displayeditem = None
  
                 elif event.type == KEYDOWN:
-            	    
-                    # self.player 1 key controls
-                    self.player.draw(screen)
-                    if event.key == K_x:
-                        if self.room.collide(self.player) == 2:
-                            self.talkerlist = self.room.talkto() # FIX
-                        if self.player2:
-                            if self.room.collide(self.player2) == 2:
-                                self.talkerlist = self.room.talkto()
-                                print "self.talker=%s" % self.talkerlist[1]
-			####if self.talkerlist == None:
-                        #id = self.player.pickup(self.room)
-			#if id == 3:
-		        #       	self.taskbar.setdungeonkey1()
-			#if id == 5:
-		        #       	self.taskbar.setrubysword()
-			#	self.player.setrubysword()
-                    elif event.key == K_z:
-                        self.player.fight(self.room)
-                        if self.player2:
-                            self.player2.fight(self.room)  
-                    elif event.key == K_UP:
-                        self.room.movedown()    
-                    elif event.key == K_DOWN:
-                        self.room.moveup()    
-                    elif event.key == K_LEFT:
-                        self.room.moveright()    
-                    elif event.key == K_RIGHT:
-                        self.room.moveleft()    
-                    elif event.key == K_SPACE:
-                        self.room.gameobjects.append(Bomb(self.player.x-self.room.relativex,self.player.y-self.room.relativey))
-    
-                    elif event.key == K_i:
-#                        self.level.gameover = 1
-                      #FIXME  pygame.event.flush()
+                    if event.key == K_i:
                         flag = 0
                         inventory = Inventory(font3)
     
                         if self.inventorykey1 == 1:
                             inventory.addkey()
-		
-			##if Scrollinvisibility(0,0,0,0,"1","1").readkeys(None):
-                        ##    inventory.additem(Inventoryscrollinvisibility())
-
 			if self.inventorydungeonmasterkey1 == 1:
                        		inventory.additem(MasterDungeonKey1(0,0))
-                        if self.inventorykey1 == 1:
-                       		1###FIX for key in inventory.additem(Inventorykey1())
-                       	if self.inventorykey2 == 1:
-                       		1###FIX for key in inventory
 			while flag == 0:#NOTE1
                             pygame.key.set_repeat(1000,1000)
                             for event in pygame.event.get():
@@ -276,18 +234,6 @@ class JohnTheSorcererMain:
 			if pickupgo.name == "Master Dungeon Key": 
 			    self.inventorydungeonmasterkey1 = 1
 			    self.room.removeobject(pickupgo)
-
-	    ### taskbarmode stays on until talking is over
-	    ### go stands for gameobject
-	    #if self.taskbarmode[1] == 9:
-	#	    talkgo = self.room.talkto(self.player)
-	#	    #print "talkid=%s" % talkid
-	#	    if talkgo:
-			### roomnumber 1 talkto items
-	###		if self.roomnumber == 1:
-###			if talkgo.name == "Master Dungeon Key":
-	#	self.talkerlist.append(talkgo) 
-	#	print "self.talkerlist=%s" % self.talkerlist[0]
 
             self.room.update(self.player)
             self.room.draw(screen,self.player) 
@@ -420,7 +366,7 @@ class JohnTheSorcererMain:
             player.x < xx+ww and 
             player.y+player.h > yy and 
             player.y < yy + hh):
-	    print "collision with ClickRect!"
+	    print "collision with ClickRect! (highlight)"
             return 1 
         else:
             return 0 

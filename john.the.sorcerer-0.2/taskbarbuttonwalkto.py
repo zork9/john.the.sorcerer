@@ -21,4 +21,4 @@ from taskbarbutton import *
 class TaskbarButtonWalkTo(TaskbarButton):
     "Taskbar Button"
     def __init__(self, screen, font):
-	TaskbarButton.__init__(self, screen, font, 0, 320, './pics/walkto-60x30.bmp')
+	TaskbarButtonHighlight.__init__(self, screen, font, 0, 320, './pics/walkto-60x30.bmp')

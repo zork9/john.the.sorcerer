@@ -30,7 +30,7 @@ class MaproomSimple1:
 	self.roompath = Room1Path(playerx, playery) 
 	self.gameobjects = []
 	self.masterdungeonkey1 = 0
-	self.gameobjects.append(MasterDungeonKey1(0,0))
+	self.gameobjects.append(MasterDungeonKey1(200,200))
 
     def draw(self,screen,player):
         # draw bg

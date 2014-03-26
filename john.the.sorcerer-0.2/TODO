@@ -1,3 +1,4 @@
 . clicking in MOUSEBUTTONUP you go towards the move taskbarbutton ?
+. second try wlkato button click for walkto probably due to len(shortestpath) = None
 . change roompath algorythms in rooms
 . roomnumbers maybe check against 1, 1.1 etc in if clauses !!
