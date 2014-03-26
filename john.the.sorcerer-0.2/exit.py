@@ -16,52 +16,44 @@
 
 import pygame
 from pygame.locals import *
+from gameobject import *
+from stateimagelibrary import *
+from talktextlibrary import *
 
-class Gameobject:
-    "Game object"
-    def __init__(self, xx,yy,ww,hh):
-	self.x = xx 
-        self.y = yy
+class Exit(Gameobject):
+    "Exit Game object"
+    def __init__(self, xx,yy,ww,hh,name):
+	Gameobject.__init__(self,xx,yy,ww,hh)
 	# default width and height 
-        self.w = ww
-        self.h = hh
-        self.SCREENH = 640
-        self.SCREENW = 480
+        self.w = ww 
+        self.h = hh 
+	self.name = name
 
-	self.name = "Gameobject Base Name"
-	self.namex = 200 
-	self.namey = 10 
-        self.image = pygame.image.load('./pics/nopicture.bmp').convert()
-        self.image.set_colorkey((0,0,0)) 
-        self.hitpoints = 1
-        # NOTE : decrease 1 hitpoint with default sword
-        self.hitf = self.hit1
-        self.meter = None
-        self.battlemode = None
-        
-    def draw(self, screen):   ###, room):
-        if self.image != None:
-		screen.blit(self.image,(self.x,self.y))
-	    
-    def collidewithsword(self, room, player):
-        #print 'gameobject x=%d y=%d player x=%d y=%d' % (self.x,self.y,player.x-room.relativex,player.y-room.relativey)
-	if (player.x-room.relativex > self.x-self.w  and 
-	player.x-room.relativex < self.x+self.w and 
-	player.y-room.relativey > self.y-self.h and 
-	player.y-room.relativey < self.y + self.h):
-	    #print "collision with Game Object!"
+    def draw(self, screen):
+	1
+ 
+    def drawstatic(self, screen):
+	1 
+
+    def drawininventory(self, screen,xx,yy):
+	1
+ 
+    def collide(self, room, player):
+	if (player.x > self.x  and 
+	player.x < self.x+self.w and 
+	player.y > self.y and 
+	player.y < self.y + self.h):
+	    print "collision with Exit : %s" % self.name
 	    return 1 
 	else:
-	    return 0
+	    return 0 
 
-    def collide(self, room, player):
-        # FIX BUG
-        #print 'gameobject x=%d y=%d player x=%d y=%d' % (self.x,self.y,player.x-room.relativex,player.y-room.relativey)
-	if (player.x-room.relativex > self.x  and 
-	player.x-room.relativex < self.x+self.w and 
-	player.y-room.relativey > self.y and 
-	player.y-room.relativey < self.y + self.h):
-	    #print "collision with Game Object!"
+    def collidecoord(self, xx, yy):
+	if (xx > self.x  and 
+	xx < self.x+self.w and 
+	yy > self.y and 
+	yy < self.y + self.h):
+	    print "collision with Exit : %s" % self.name
 	    return 1 
 	else:
 	    return 0 ## for game self.talker
@@ -109,21 +101,15 @@ class Gameobject:
     def pickup(self, room):
         return 0
 
-    def hit1(self):## NOTE decreases hitpoints
-        self.hitpoints -= 1
-        return self.hitpoints
+    def talkto(self, room):
+        return None 
 
-    def hit2(self):## NOTE decreases hitpoints
-        self.hitpoints -= 2
-        return self.hitpoints
+
+    def talk(self, screen):
+	1
 
     def hitwithweapon(self,damage):
-	if damage > 0:
-            print 'enemy is hit!'
-        self.hitpoints -= damage
-        self.battlemode = 1
-        if self.meter:
-            self.meter.index -= damage
+	1
 
     def fight(self,room,player):
 	1
@@ -133,7 +119,3 @@ class Gameobject:
     
     def undomove(self):
 	1
-
-    def talk(self, screen, font):
-	1			
-	

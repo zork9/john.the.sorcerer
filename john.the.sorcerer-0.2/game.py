@@ -234,6 +234,7 @@ class JohnTheSorcererMain:
 		if pickupgo.name == "Master Dungeon Key": 
 		    self.inventorydungeonmasterkey1 = 1
 		    self.room.removeobjectlen(pickupgo)
+		    self.displayeditem = None ### do not display text anymore as it has been removed from the screen
 
             self.room.update(self.player)
             self.room.draw(screen,self.player) 
@@ -304,7 +305,7 @@ class JohnTheSorcererMain:
                 
             self.taskbar.draw()
 	    if self.displayeditem:
-	    	screen.blit(font2.render(self.displayeditem.name, 16, (255,255,255)), (250,390))
+	    	screen.blit(font2.render(self.displayeditem.name, 16, (255,255,255)), (self.displayeditem.namex, self.displayeditem.namey))
 
             pygame.display.update()
             screen.blit(blankimage, (0,0))

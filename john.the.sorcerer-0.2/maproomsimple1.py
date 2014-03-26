@@ -18,6 +18,7 @@ import pygame
 from pygame.locals import *
 from room1path import *
 from masterdungeonkey1 import *
+from exit import *
 
 #
 # This room fields the owl on the tree with nest
@@ -31,6 +32,8 @@ class MaproomSimple1:
 	self.gameobjects = []
 	self.masterdungeonkey1 = 0
 	self.gameobjects.append(MasterDungeonKey1(200,200))
+	self.gameobjects.append(Exit(0,0,10,480,"<- To Goblin Camp"))
+	self.gameobjects.append(Exit(630,0,10,480,"To Goon City ->"))
 
     def draw(self,screen,player):
         # draw bg
@@ -73,12 +76,12 @@ class MaproomSimple1:
 	1    
 
     def isroomleftexit(self,game):
-	if game.player.x  < 1: 
+	if game.player.x  < 10: 
 		return 1
 	return 0
 
     def isroomrightexit(self,game):
-	if game.player.x > 639:
+	if game.player.x > 630:
 		return 1
 	return 0
 

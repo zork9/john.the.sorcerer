@@ -63,12 +63,12 @@ class MaproomSimple3:
 	1    
 
     def isroomleftexit(self,game):
-	if game.player.x  < 1: 
+	if game.player.x  < 10: 
 		return 1
 	return 0
 
     def isroomrightexit(self,game):
-	if game.player.x > 639:
+	if game.player.x > 630:
 		return 1
 	return 0
 
