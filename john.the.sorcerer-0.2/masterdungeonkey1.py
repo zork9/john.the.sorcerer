@@ -28,6 +28,10 @@ class MasterDungeonKey1(Gameobject):
         self.w = 48
         self.h = 48
 	self.name = "Master Dungeon Key"
+      	self.stimlibinventory = Stateimagelibrary()  
+	self.imagei = pygame.image.load('./pics/key1-inventory-92x92.bmp').convert()
+        self.imagei.set_colorkey((0,0,0)) 
+       	self.stimlibinventory.addpicture(self.imagei)
       	self.stimlib = Stateimagelibrary()  
 	self.image1 = pygame.image.load('./pics/key1-48x48.bmp').convert()
         self.image1.set_colorkey((0,0,0)) 
@@ -44,7 +48,7 @@ class MasterDungeonKey1(Gameobject):
 	self.stimlib.drawstatic(screen, self.x, self.y, 0)	
  
     def drawininventory(self, screen,xx,yy):
-	self.stimlib.drawstatic(screen, xx, yy, 0)	
+	self.stimlibinventory.draw(screen, xx, yy)	
  
     def collide(self, room, player):
         # FIX BUG

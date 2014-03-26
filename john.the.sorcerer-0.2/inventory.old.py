@@ -20,6 +20,7 @@ from pygame.locals import *
 
 class Inventory(object):
     def __init__(self,font):
+        self.background = pygame.image.load('./pics/blank.bmp').convert()
         self.listrow1 = []
         self.listrow2 = []
 	self.ITEMWIDTH = 40
@@ -37,16 +38,11 @@ class Inventory(object):
         self.selectioncounter = 0 
         self.numberofkeys = 0
         self.keyimage = pygame.image.load('./pics/dungeonkey1.1-36x36.bmp').convert()
-        self.keyimage.set_colorkey((0,0,0))
+        self.keyimage.set_colorkey((0,0,255))
         self.numberofgold = 0
         self.goldcoinimage = pygame.image.load('./pics/goldcoin1.1-36x36.bmp').convert()
         self.goldcoinimage.set_colorkey((0,0,0))
-	self.x = 300
-	self.y = 360
-     	### FIXME constants 
-	self.offsetx1 = 250
-	self.offsety1 = 60
- 
+        
     def setrow1(self, r):
         self.listrow1 = r
 
@@ -58,29 +54,47 @@ class Inventory(object):
 
     def draw(self,screen):
 
+        screen.blit(self.background, (0, 0))
+        screen.blit(self.font.render("Inventory", 6, (0,255,0)), (10,10))
+        screen.blit(self.font.render("Inventory", 6, (0,0,255)), (12,12))
+
+        screen.blit(self.font.render("Equipment", 6, (0,255,0)), (10,10+self.ITEMHEIGHT))
+        screen.blit(self.font.render("Equipment", 6, (0,0,255)), (12,12+self.ITEMHEIGHT))
+
+        screen.blit(self.font.render("Spells", 6, (0,255,0)), (10,10+self.ITEMHEIGHT*2))
+        screen.blit(self.font.render("Spells", 6, (0,0,255)), (12,12+self.ITEMHEIGHT*2))
+
+        screen.blit(self.font.render("Hit 'x' to go back to the game", 6, (255,0,0)), (12,self.SCREENHEIGHT - 20))
+
         pos = pygame.mouse.get_pos()
         mousex = pos[0]-18
         mousey = pos[1]-18
 
         self.selectioncounter = mousex % self.ITEMMAX
 
+##        x = 80 + self.selectioncounter * self.ITEMWIDTH % self.ITEMMAX*self.ITEMWIDTH 
+##	y = self.selectioncounter / self.ITEMMAX * self.ITEMWIDTH
 	x = mousex ##% self.ITEMMAX*self.ITEMWIDTH 
 	y = mousey ##self.selectioncounter / self.ITEMMAX * self.ITEMWIDTH
         
         for i in range(0,len(self.listrow1)):
             o = self.listrow1[i]
             if o:
-                o.drawininventory(screen,80+40*(i%self.ITEMMAX) + self.x, i/36 + 330)
+                o.drawininventory(screen,80+40*(i%self.ITEMMAX),i/36)
 
         for i in range(0,len(self.listrow2)):
             o = self.listrow2[i]
             if o:
-                o.drawininventory(screen,80+40*(i%self.ITEMMAX) + self.x, i/36 + self.ITEMHEIGHT + self.y)
+                o.drawininventory(screen,80+40*(i%self.ITEMMAX),i/36 + self.ITEMHEIGHT)
 
-        screen.blit(self.keyimage,(self.offsetx1,320))
-        screen.blit(self.font.render(" x %d" % self.numberofkeys, 6, (255,255,255)), (36 + self.offsetx1,330))
-        screen.blit(self.goldcoinimage,(self.offsetx1,320 + self.offsety1))
-        screen.blit(self.font.render(" x %d" % self.numberofgold, 6, (255,255,255)), (36 + self.offsetx1,330 + self.offsety1))
+	
+        
+        screen.blit(self.keyimage,(10,320))
+        screen.blit(self.font.render(" x %d" % self.numberofkeys, 6, (0,0,255)), (36,330))
+        screen.blit(self.goldcoinimage,(110,320))
+        screen.blit(self.font.render(" x %d" % self.numberofgold, 6, (0,0,255)), (136,330))
+	### NOTE draw mouse rect pointer last
+        self.drawrect(screen,x,y)
 
     def drawrect(self,screen,x,y):
         screen.blit(self.rectimage, (x, y))

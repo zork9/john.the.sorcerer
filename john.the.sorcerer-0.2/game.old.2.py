@@ -42,7 +42,6 @@ class JohnTheSorcererMain:
         titleimage = pygame.image.load('./pics/titlescreen.bmp').convert()
         self.x = 0
         self.y = 0
-        self.inventory = Inventory(font3)
 
         while gameover == 0:
             pygame.display.update()
@@ -202,6 +201,35 @@ class JohnTheSorcererMain:
 			self.displayeditem = go
                     else:
 			self.displayeditem = None
+ 
+                elif event.type == KEYDOWN:
+                    if event.key == K_i:
+                        flag = 0
+                        inventory = Inventory(font3)
+    
+                        if self.inventorykey1 == 1:
+                            inventory.addkey()
+			if self.inventorydungeonmasterkey1 == 1:
+                       		inventory.additem(MasterDungeonKey1(0,0))
+			while flag == 0:#NOTE1
+                            pygame.key.set_repeat(1000,1000)
+                            for event in pygame.event.get():
+                                if event.type == QUIT:
+                                    return
+
+                                elif event.type == KEYDOWN:
+                                    if event.key == K_LEFT:
+                                        inventory.moveleft()
+                                    elif event.key == K_RIGHT:
+                                        inventory.moveright()
+                                    elif event.key == K_x:
+                                        self.inventoryitem = inventory.getitem(self.inventoryitem)
+                                        pygame.key.set_repeat(1,1)
+                                        flag = 1
+
+
+                                inventory.draw(screen)
+                                pygame.display.update()
             
 	    pickupgo = self.room.pickup(self.player)
 	    if pickupgo:
@@ -211,12 +239,6 @@ class JohnTheSorcererMain:
 		    self.inventorydungeonmasterkey1 = 1
 		    self.room.removeobjectlen(pickupgo)
 		    self.displayeditem = None ### do not display text anymore 
-
-		### addition to inventory
-                if self.inventorykey1 == 1:
-            		self.inventory.addkey()
-	        if self.inventorydungeonmasterkey1 == 1:
-            		self.inventory.additem(MasterDungeonKey1(0,0))
 
             self.room.update(self.player)
             self.room.draw(screen,self.player) 
@@ -289,8 +311,6 @@ class JohnTheSorcererMain:
             self.taskbar.draw()
 	    if self.displayeditem:
 	    	screen.blit(font2.render(self.displayeditem.name, 16, (255,255,255)), (self.displayeditem.namex, self.displayeditem.namey))
-    
-            self.inventory.draw(screen)
 
             pygame.display.update()
             screen.blit(blankimage, (0,0))
