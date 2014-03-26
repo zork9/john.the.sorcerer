@@ -18,6 +18,7 @@ import pygame
 from pygame.locals import *
 from gameobject import *
 from stateimagelibrary import *
+from talktextlibrary import *
 
 class MasterDungeonKey1(Gameobject):
     "DungeoMasterKey Game object"
@@ -31,7 +32,8 @@ class MasterDungeonKey1(Gameobject):
 	self.image1 = pygame.image.load('./pics/key1-48x48.bmp').convert()
         self.image1.set_colorkey((0,0,0)) 
        	self.stimlib.addpicture(self.image1)
- 
+      	self.talktextlib = Talktextlibrary()  
+	self.talktextlib.addtext("The key says nothing") 
 ###    def draw(self, screen, room):
 ###        screen.blit(self.image,(self.x+room.relativex,self.y+room.relativey))
 
@@ -51,6 +53,16 @@ class MasterDungeonKey1(Gameobject):
 	player.y > self.y and 
 	player.y < self.y + self.h):
 	    print "collision with DungeonMasterKey"
+	    return 1 
+	else:
+	    return 0 ## for game self.talker
+
+    def collidecoord(self, xx, yy):
+	if (xx > self.x  and 
+	xx < self.x+self.w and 
+	yy > self.y and 
+	yy < self.y + self.h):
+	    print "collision coord with DungeonMasterKey"
 	    return 1 
 	else:
 	    return 0 ## for game self.talker
@@ -97,6 +109,13 @@ class MasterDungeonKey1(Gameobject):
 
     def pickup(self, room):
         return 0
+
+    def talkto(self, room):
+        return self
+
+
+    def talk(self, screen):
+	self.talktextlib.draw(screen, self.x,self.y)	
 
     def hit1(self):## NOTE decreases hitpoints
         self.hitpoints -= 1

@@ -35,7 +35,7 @@ class JohnTheSorcererMain:
         font2 = pygame.font.SysFont("Vera", 28)
         font3 = pygame.font.SysFont("Courier", 10)
         gameover = 0
-	self.displayeditemtext = ""        
+	self.displayeditem = None        
         blankimage = pygame.image.load('./pics/blank-purple.bmp').convert()
         titleimage = pygame.image.load('./pics/titlescreen.bmp').convert()
         self.x = 0
@@ -71,7 +71,7 @@ class JohnTheSorcererMain:
         self.inventoryrubysword = None
         
         self.taskbar = Taskbar(screen,font)
-        self.talkerlist = None
+        self.talkerlist = [] 
 
         self.position1stx = 0
         self.position1sty = 0
@@ -124,6 +124,26 @@ class JohnTheSorcererMain:
 			self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
 			self.taskbarmode = None	
 
+                if event.type == pygame.MOUSEBUTTONUP and self.taskbarmode and self.taskbarmode[1] == 6 and self.displayeditem:
+			### 6 : pickup button clicked
+			self.player.changeorientation(self.position2ndx,self.position2ndy)
+			self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
+			self.taskbarmode = None	
+
+                if event.type == pygame.MOUSEBUTTONUP and self.taskbarmode and self.taskbarmode[1] == 9 and self.displayeditem:
+			### 9 : talkto button clicked
+			self.player.changeorientation(self.position2ndx,self.position2ndy)
+			self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
+			self.taskbarmode = None
+		    	talkgo = self.room.talkto(self.position1stx,self.position1sty)
+		    	#print "talkid=%s" % talkid
+		    	if talkgo:
+			### roomnumber 1 talkto items
+	###		if self.roomnumber == 1:
+###			if talkgo.name == "Master Dungeon Key":
+				self.talkerlist.append(talkgo) 
+				print "self.talkerlist=%s" % self.talkerlist[0]
+
                 elif event.type == pygame.MOUSEBUTTONUP:
 
                     position2 = pygame.mouse.get_pos()
@@ -139,7 +159,10 @@ class JohnTheSorcererMain:
 				1
 			elif (self.taskbarmode[1] == 6):
 				### 6 : pickup button clicked
-				self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
+				1
+			elif (self.taskbarmode[1] == 9):
+				### 9 : talkto button clicked
+				1
            			 
                     self.position1stx = 0
                     self.position1sty = 0
@@ -171,9 +194,9 @@ class JohnTheSorcererMain:
 		    ### print "ROOM=%s" % self.room
 		    go = self.room.collide(positionmove[0], positionmove[1])
 		    if go:
-			self.displayeditemtext = go.name
+			self.displayeditem = go
                     else:
-			self.displayeditemtext = ""
+			self.displayeditem = None
  
                 elif event.type == KEYDOWN:
             	    
@@ -285,48 +308,21 @@ class JohnTheSorcererMain:
 	                    self.inventoryrubysword = 1
 	                    self.taskbar.setrubysword()
 
-            if self.player2:
-                pickupid = self.room.pickup(self.player2)
-                #print "pickup=%s" % pickupid
-                if pickupid:
-                    if pickupid == 1: # NOTE : masterkey id
-                        self.inventorymasterkey = 1
-                    elif pickupid == 2: ## NOTE: dungeonentrance 2 id opens with key 1
-                        if self.inventorykey1 == 1:
-                            self.room.removeentrance2()
-                    elif pickupid == 3: # NOTE dungeon key 1 id
-                        flag = 0
-                        self.inventorykey1 = 1
-                        pygame.key.set_repeat(1000,1000)
-                        self.room.draw(screen,self.player)
-                        self.player.drawstatic(screen)
-                        if self.player2:
-                            self.player2.drawstatic(screen)
-                        screen.blit(font2.render("You picked up a key. (Hit 'x' to continue)", 6, (0,0,200)), (100,100))
-                        pygame.display.update()
-                        while flag == 0:#NOTE1
-                                for event in pygame.event.get():
-                                    if event.type == QUIT:
-                                        return
-                                    if event.type == MOUSEBUTTONDOWN:
-                                        pygame.key.set_repeat(1,1)
-                                        flag = 1
-                                    elif event.type == KEYDOWN:
-                                        if event.key == K_x:
-                                            pygame.key.set_repeat(1,1)
-                                            flag = 1
-                                         
-                        self.inventorykey1 = 1
-                    elif pickupid == 4: # NOTE dungeon key 2 id
-                        self.inventorykey2 = 1
-                    elif pickupid == 5: # NOTE ruby sword id
-                        self.inventoryrubysword = 1
-                        self.taskbar.setrubysword()
+	    ### taskbarmode stays on until talking is over
+	    ### go stands for gameobject
+	    #if self.taskbarmode[1] == 9:
+	#	    talkgo = self.room.talkto(self.player)
+	#	    #print "talkid=%s" % talkid
+	#	    if talkgo:
+			### roomnumber 1 talkto items
+	###		if self.roomnumber == 1:
+###			if talkgo.name == "Master Dungeon Key":
+	#	self.talkerlist.append(talkgo) 
+	#	print "self.talkerlist=%s" % self.talkerlist[0]
 
             self.room.update(self.player)
             self.room.draw(screen,self.player) 
             self.player.drawstatic(screen)
-
 
 	    ### automove
 	    if (len(self.shortest_path_nodes) > 0):
@@ -372,7 +368,7 @@ class JohnTheSorcererMain:
             if self.talkerlist != None:
                 for o in self.talkerlist:
                     if o != None:
-                        o.talk(screen,font)
+                        o.talk(screen)
 
             if self.position1stx != 0 or self.position1sty != 0:
                 pygame.draw.rect(screen, (255,0,0), ((self.position1stx,self.position1sty),(self.positionmovex,self.positionmovey)),1)
@@ -391,7 +387,8 @@ class JohnTheSorcererMain:
             position = pygame.mouse.get_pos()
                 
             self.taskbar.draw()
-	    screen.blit(font2.render(self.displayeditemtext, 16, (255,255,255)), (250,390))
+	    if self.displayeditem:
+	    	screen.blit(font2.render(self.displayeditem.name, 16, (255,255,255)), (250,390))
 
             pygame.display.update()
             screen.blit(blankimage, (0,0))
@@ -410,10 +407,16 @@ class JohnTheSorcererMain:
     def chooseroom(self, roomnumber,font):
         if (roomnumber == 0):
             return
-        # NOTE: 1_X  woods around haunted castle
+        # enter room 1  
         elif (roomnumber == 1):
             self.talker = None
             self.room = MaproomSimple1(0,0)
+        # enter room 1 and change player coords to right of room (coming from the left)  
+        elif (roomnumber == 1.1):
+            self.talker = None
+            self.room = MaproomSimple1(0,0)
+	    self.player.x = 550
+	    self.player.y = 340 
         elif (roomnumber == 2):
             self.talker = None
             self.room = MaproomSimple2(0,0)

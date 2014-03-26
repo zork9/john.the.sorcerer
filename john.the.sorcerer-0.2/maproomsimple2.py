@@ -16,7 +16,7 @@
 
 import pygame
 from pygame.locals import *
-from room1path import *
+from room2path import *
 from masterdungeonkey1 import *
 
 #
@@ -27,7 +27,7 @@ class MaproomSimple2:
     "Room 1 (simple stands for non-scrolling)"
     def __init__(self,playerx,playery):
         self.background = pygame.image.load('./pics/room-goblin-camp-1-640x480.bmp').convert()
-	self.roompath = Room1Path(playerx, playery) 
+	self.roompath = Room2Path(playerx, playery) 
 	self.gameobjects = []
 	self.masterdungeonkey1 = 0
 ######	self.gameobjects.append(MasterDungeonKey1(0,0))
@@ -55,7 +55,7 @@ class MaproomSimple2:
 		xx < go.x+go.w and 
 		yy > go.y and 
 		yy < go.y + go.h):
-		    print "collision in maproomsimple1 go=%s" % go
+		    print "collision in maproomsimple2 go=%s" % go
 		    return go 
         return None
 
@@ -78,7 +78,7 @@ class MaproomSimple2:
 		return 2 ### NOTE goto room number 2 (in game obj) 
 	elif self.isroomrightexit(game):
 		###self.setxyfromdown()
-		return 3 ### NOTE goto room number 3 (in game obj) 
+		return 1 ### NOTE goto room number 3 (in game obj) 
 	return 0 
 
     def talkto(self):#FIXME needs font

@@ -23,7 +23,7 @@ import pathgeometry
 import pathmapping
 from pathnode import Node
 
-class Room1Path(RoomPath):
+class Room3Path(RoomPath):
     "Create room 3 polygons for pathfinding"
     def __init__(self, startx = 550, starty = 430):
 	RoomPath.__init__(self, startx, starty) 

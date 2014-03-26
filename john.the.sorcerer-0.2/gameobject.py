@@ -135,3 +135,7 @@ class Gameobject:
     
     def undomove(self):
 	1
+
+    def talk(self, screen, font):
+	1			
+	

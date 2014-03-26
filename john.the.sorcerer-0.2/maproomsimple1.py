@@ -30,7 +30,7 @@ class MaproomSimple1:
 	self.roompath = Room1Path(playerx, playery) 
 	self.gameobjects = []
 	self.masterdungeonkey1 = 0
-######	self.gameobjects.append(MasterDungeonKey1(0,0))
+	self.gameobjects.append(MasterDungeonKey1(0,0))
 
     def draw(self,screen,player):
         # draw bg
@@ -49,13 +49,23 @@ class MaproomSimple1:
 		return id
         return 0
 
+    def talkto(self, mousex, mousey):###FIX for each room
+	###print 'talkto1'
+        for o in self.gameobjects:
+            if (o and o.collidecoord(mousex, mousey)):##FIX o.colidepickup
+		### return id of the talkto item
+                go = o.talkto(self)
+		print 'talkto'
+		return go 
+        return None 
+
     def collide(self, xx,yy):
 	for go in self.gameobjects:
 		if (xx > go.x  and 
 		xx < go.x+go.w and 
 		yy > go.y and 
 		yy < go.y + go.h):
-		    print "collision in maproomsimple1 go=%s" % go
+		    ### print "collision in maproomsimple1 go=%s" % go
 		    return go 
         return None
 
@@ -80,12 +90,6 @@ class MaproomSimple1:
 		###self.setxyfromdown()
 		return 3 ### NOTE goto room number 3 (in game obj) 
 	return 0 
-
-    def talkto(self):#FIXME needs font
-            print "talk to in maproom 6"
-            ## return self.koboldwiz
-            self.centaur1.talkcounter = 1
-            return (self.centaur1,self.centaur2)
 
     def removeobject(self, o):
         for i in self.gameobjects:
