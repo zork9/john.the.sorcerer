@@ -284,10 +284,11 @@ class JohnTheSorcererMain:
 
             if self.talkerlist != None:
                 for o in self.talkerlist:
-                    if o != None:
+                    if o != None and self.displayeditem:
 			if o.endoftalk():
 				self.talkerlist = []
-				self.talktextnumber = -1 
+				self.talktextnumber = -1
+				self.displayeditem = None 
                         else:
 				o.talkstatic(screen,self.talktextnumber)
 
