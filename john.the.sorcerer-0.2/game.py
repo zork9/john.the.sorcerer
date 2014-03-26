@@ -54,9 +54,9 @@ class JohnTheSorcererMain:
                     
         screen.blit(blankimage, (0,0))
 
-	###self.player = Player(550,340)
-	self.player = Player(100,200)
-	self.player2 = Player(550,340) ### FIXME delete
+	###self.player = Player(550,340,-1)
+	self.player = Player(100,200,1)
+	self.player2 = Player(550,340,-1) ### FIXME delete
 	self.aiengine = None
 	self.taskbarmode = None
         ###self.room = MaproomSimple1(0,0,550,430,self.aiengine)
@@ -130,6 +130,7 @@ class JohnTheSorcererMain:
 			print "clicked on %s" % self.taskbarmode[0]
 			if (self.taskbarmode[1] == 4):
 				### 4 : move button clicked
+				self.player.changeorientation(self.position2ndx,self.position2ndy)
 				self.shortest_path_nodes = self.room.roompath.find_path(self.position1stx, self.position1sty)
 			elif (self.taskbarmode[1] == 6):
 				### 6 : pickup button clicked

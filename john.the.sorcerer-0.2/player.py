@@ -22,23 +22,40 @@ from rng import *
 
 class Player(PlayerBase):
     "Player"
-    def __init__(self, startx, starty):
+    def __init__(self, startx, starty, orientation):
 	PlayerBase.__init__(self)        
-        self.stimlib = Stateimagelibrary()
+        self.stimlibright = Stateimagelibrary()
         self.image1 = pygame.image.load('./pics/simon-right-1-48x100.bmp').convert()
         self.image1.set_colorkey((0,0,0)) 
-	self.stimlib.addpicture(self.image1)
+	self.stimlibright.addpicture(self.image1)
+        self.image2 = pygame.image.load('./pics/simon-left-1-48x100.bmp').convert()
+        self.image2.set_colorkey((0,0,0)) 
+	self.stimlibright.addpicture(self.image2)
 	self.x = startx
 	self.y = starty 
 	self.w = 0
 	self.h = 0
         self.hitpoints = 50
+	self.orientation = orientation ### -1 == left, 1 == right 
+
+    def changeorientation(self, xx,yy):
+	if xx < self.x:
+		self.orientation = -1
+	elif xx > self.x:
+		self.orientation = 1
+	else:
+		self.orientation = -1
 
     def draw(self, screen):
-	self.stimlib.draw(screen, self.x, self.y)	
+	if self.orientation == -1:
+		self.stimlibleft.draw(screen, self.x, self.y)	
+	elif self.orientation == 1:
+		self.stimlibright.draw(screen, self.x, self.y)	
+	else:
+		self.stimlibleft.draw(screen, self.x, self.y)	
  
     def drawstatic(self, screen):
-	self.stimlib.drawstatic(screen, self.x, self.y, 0)	
+	self.stimlibright.drawstatic(screen, self.x, self.y, 0)	
  
     def pickup(self,room):
         n = room.pickup(self)
