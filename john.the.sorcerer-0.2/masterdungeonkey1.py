@@ -22,10 +22,11 @@ from stateimagelibrary import *
 class MasterDungeonKey1(Gameobject):
     "DungeoMasterKey Game object"
     def __init__(self, xx,yy):
-	Gameobject.__init__(self,xx,yy)
+	Gameobject.__init__(self,xx,yy,48,48)
 	# default width and height 
         self.w = 48
         self.h = 48
+	self.name = "Master Dungeon Key"
       	self.stimlib = Stateimagelibrary()  
 	self.image1 = pygame.image.load('./pics/key1-48x48.bmp').convert()
         self.image1.set_colorkey((0,0,0)) 

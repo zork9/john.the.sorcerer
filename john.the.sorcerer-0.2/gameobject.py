@@ -19,14 +19,17 @@ from pygame.locals import *
 
 class Gameobject:
     "Game object"
-    def __init__(self, xx,yy):
+    def __init__(self, xx,yy,ww,hh):
 	self.x = xx 
         self.y = yy
 	# default width and height 
-        self.w = 48
-        self.h = 48
+        self.w = ww
+        self.h = hh
         self.SCREENH = 640
         self.SCREENW = 480
+
+	self.name = "Gameobject Base"
+
         ## dungeon statue as default picture
         ## self.image = pygame.image.load('./pics/dungeon-statue1-36x36.bmp').convert()
 ###        self.image = pygame.image.load('./pics/nopicture.bmp').convert()

@@ -49,8 +49,16 @@ class MaproomSimple1:
 		return id
         return 0
 
-    def collide(self, player):
-	1    
+    def collide(self, xx,yy):
+	for go in self.gameobjects:
+		if (xx > go.x  and 
+		xx < go.x+go.w and 
+		yy > go.y and 
+		yy < go.y + go.h):
+		    print "collision in maproomsimple1 go=%s" % go
+		    return go 
+		else:
+		    return None
 
     def update(self, player):
 	1    
@@ -79,4 +87,15 @@ class MaproomSimple1:
             ## return self.koboldwiz
             self.centaur1.talkcounter = 1
             return (self.centaur1,self.centaur2)
+
+    def removeobject(self, o):
+        for i in self.gameobjects:
+	    if i!= None:
+                if i == o:
+                    i = None ###FIXME2
+
+    def removeobjectlen(self, o):
+        for i in range(0,len(self.gameobjects)):
+            if self.gameobjects[i] == o:
+                self.gameobjects[i] = None
  

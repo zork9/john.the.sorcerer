@@ -165,9 +165,7 @@ class JohnTheSorcererMain:
 		    go = self.room.collide(positionmove[0], positionmove[1])
 		    if go:
 			self.displayeditemtext = go.name
-                    else:
-			self.displayeditemtext = ""
- 
+                    
                 elif event.type == KEYDOWN:
             	    
                     # self.player 1 key controls
@@ -316,9 +314,28 @@ class JohnTheSorcererMain:
                         self.inventoryrubysword = 1
                         self.taskbar.setrubysword()
 
+	    # FIXME self.player 2
+            if (self.room.collide(self.player) == 1 or self.player.hitpoints <= 0) or (self.player2 and self.player2.hitpoints <= 0): # NOTE: return 1 after self.player heartmeter runs out (self.player.hit)
+                endingimage = pygame.image.load('./pics/endingscreen.bmp').convert()
+                while gameover == 0:
+                        pygame.display.update()
+                        screen.blit(endingimage, (0,0))
+                        for event in pygame.event.get():
+                                if event.type == QUIT:
+                                        return
+                                elif event.type == KEYDOWN:
+                                        gameover = 1
+                                        return
+                                if event.type == pygame.MOUSEBUTTONDOWN:
+                                        gameover = 1
+                                        return
+            ###if self.room.collide(self.player) == 3:###Dungeon wall
+                ##self.room.undomove()
+            ###    self.room.removeentrance2()
             self.room.update(self.player)
             self.room.draw(screen,self.player) 
             self.player.drawstatic(screen)
+	    screen.blit(font2.render(self.displayeditemtext, 16, (0,0,200)), (100,100))
 
 
 	    ### automove
@@ -384,7 +401,6 @@ class JohnTheSorcererMain:
             position = pygame.mouse.get_pos()
                 
             self.taskbar.draw()
-	    screen.blit(font2.render(self.displayeditemtext, 16, (255,255,255)), (250,390))
 
             pygame.display.update()
             screen.blit(blankimage, (0,0))
